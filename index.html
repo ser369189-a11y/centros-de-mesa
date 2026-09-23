@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--
+    ⚠️ IMPORTANTE: estas etiquetas (title, description, og:*) son LEÍDAS
+    POR WHATSAPP/FACEBOOK/REDES directamente del HTML estático — esas
+    plataformas no ejecutan JavaScript, así que NO pueden generarse
+    dinámicamente desde js/productos.js. Si cambias el nombre de la
+    tienda o la imagen principal, actualiza también estas líneas a mano.
+
+    Después de editar, si compartes el link y sigue saliendo la versión
+    vieja, es por caché de WhatsApp/Facebook — fuerza el refresh en:
+    https://developers.facebook.com/tools/debug/ (pega tu URL → "Scrape Again")
+  -->
+  <title>Madrid Industrias | Muebles Multiespacios — Envíos y Pago Contraentrega a Todo el Perú</title>
+  <meta name="description" content="Repisas, estantes, mesas y muebles auxiliares de diseño industrial. Envíos a todo el Perú, pago contraentrega. ¡Elige tu ambiente y arma tu pedido!" />
+
+  <!-- Open Graph (para que se vea bien al compartir en redes / WhatsApp) -->
+  <meta property="og:title" content="Madrid Industrias — Diseño que transforma tus espacios" />
+  <meta property="og:description" content="Repisas, estantes, mesas y muebles auxiliares de diseño industrial. Envíos y pago contraentrega a todo el Perú." />
+  <meta property="og:image" content="assets/images/productos/mesa-recibidora-sala.jpg" />
+  <meta property="og:type" content="product" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="css/checkout-modal.css" />
+  <link rel="stylesheet" href="css/mejoras_landing.css" />
+  <link rel="stylesheet" href="css/catalogo.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <!-- ===== BARRA DE CONFIANZA (arriba de todo) ===== -->
+  <div class="trust-bar">
+    <div class="trust-bar__item trust-bar__item--destacado">🚚 ENVÍOS A TODO EL PERÚ · PAGO CONTRAENTREGA</div>
+    <div class="trust-bar__item">🛒 Arma tu pedido con varios productos</div>
+    <div class="trust-bar__item">🔒 Compra 100% segura</div>
+  </div>
+
+  <div class="barra-confianza">
+    <div class="barra-confianza__ticker-wrap">
+      <div class="barra-confianza__ticker">
+        <span class="barra-confianza__item">🚚 Envíos a todo el Perú</span>
+        <span class="barra-confianza__sep">•</span>
+        <span class="barra-confianza__item">🛡️ Pago contra entrega</span>
+        <span class="barra-confianza__sep">•</span>
+        <span class="barra-confianza__item">✅ Garantía de 30 días</span>
+        <span class="barra-confianza__sep">•</span>
+        <span class="barra-confianza__item"><span class="barra-confianza__estrellas">★★★★★</span> +1000 clientes satisfechos</span>
+        <span class="barra-confianza__sep">•</span>
+        <!-- Duplicado para loop continuo sin saltos -->
+        <span class="barra-confianza__item">🚚 Envíos a todo el Perú</span>
+        <span class="barra-confianza__sep">•</span>
+        <span class="barra-confianza__item">🛡️ Pago contra entrega</span>
+        <span class="barra-confianza__sep">•</span>
+        <span class="barra-confianza__item">✅ Garantía de 30 días</span>
+        <span class="barra-confianza__sep">•</span>
+        <span class="barra-confianza__item"><span class="barra-confianza__estrellas">★★★★★</span> +1000 clientes satisfechos</span>
+        <span class="barra-confianza__sep">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO DE MARCA
+       ============================================================ -->
+  <header class="hero-marca">
+    <div class="contenedor">
+      <div class="hero-marca__logo">MADRID INDUSTRIAS</div>
+      <h1 class="hero-marca__titulo">Diseño que transforma tus espacios</h1>
+      <p class="hero-marca__subtitulo">
+        Repisas, estantes, mesas y muebles auxiliares de estilo industrial —
+        madera + metal — para cocina, baño, sala, dormitorio y oficina.
+      </p>
+      <a href="#catalogo" class="hero-marca__cta">Ver catálogo</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       CATÁLOGO
+       ============================================================ -->
+  <main class="catalogo contenedor" id="catalogo">
+    <h2 class="catalogo__titulo">Nuestros muebles</h2>
+    <p class="catalogo__subtitulo">Elige un ambiente y agrega uno o varios productos a tu pedido.</p>
+
+    <div class="catalogo__filtros" id="catalogo-filtros"></div>
+    <div class="catalogo__grid" id="catalogo-grid"></div>
+  </main>
+
+  <!-- ===== CONFIANZA: agencias de envío + métodos de pago ===== -->
+  <section class="franja-confianza franja-confianza--top">
+    <div class="contenedor">
+      <h3 class="seccion-titulo-centrado">ENVÍOS RÁPIDOS Y SEGUROS A TODO EL PERÚ</h3>
+
+      <div class="logos-fila">
+        <img src="assets/images/logo-courier-dinsides.png" alt="Dinsides Courier" loading="lazy" />
+        <img src="assets/images/logo-courier-shalom.png" alt="Shalom" loading="lazy" />
+        <img src="assets/images/logo-courier-olva.png" alt="Olva Courier" loading="lazy" />
+        <img src="assets/images/logo-courier-marvisur.png" alt="Expreso Marvisur" loading="lazy" />
+      </div>
+
+      <div class="logos-fila logos-fila--pagos">
+        <img src="assets/images/logo-pago-visa.png" alt="Visa" loading="lazy" />
+        <img src="assets/images/logo-pago-mastercard.png" alt="Mastercard" loading="lazy" />
+        <img src="assets/images/logo-pago-amex.png" alt="American Express" loading="lazy" />
+        <img src="assets/images/logo-pago-yape.png" alt="Yape" loading="lazy" />
+        <img src="assets/images/logo-pago-plin.png" alt="Plin" loading="lazy" />
+        <img src="assets/images/logo-pago-bcp.png" alt="BCP" loading="lazy" />
+        <img src="assets/images/logo-pago-scotiabank.png" alt="Scotiabank" loading="lazy" />
+        <img src="assets/images/logo-pago-interbank.png" alt="Interbank" loading="lazy" />
+        <img src="assets/images/logo-pago-bbva.png" alt="BBVA" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <div class="contenedor">
+    <div class="tienda-lider">
+      <div class="tienda-lider__header">
+        <span>🏅</span>
+        <span class="tienda-lider__titulo">Tienda Líder Platinum</span>
+      </div>
+      <div class="tienda-lider__subtitulo">¡Uno de los mejores del sitio!</div>
+      <div class="tienda-lider__barra"></div>
+      <div class="tienda-lider__metricas">
+        <div>
+          <div class="tienda-lider__metrica-numero">3,240</div>
+          <div class="tienda-lider__metrica-texto">Ventas en los últimos 60 días</div>
+        </div>
+        <div>
+          <div class="tienda-lider__metrica-numero">👍</div>
+          <div class="tienda-lider__metrica-texto">Brindamos buen servicio</div>
+        </div>
+        <div>
+          <div class="tienda-lider__metrica-numero">📦</div>
+          <div class="tienda-lider__metrica-texto">Entregas rápidas y seguras</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FRANJA DE CONFIANZA: reseñas + envíos + beneficios
+       ============================================================ -->
+  <section class="franja-confianza">
+    <div class="contenedor">
+      <h3 class="seccion-titulo-centrado">+1,000 CLIENTES FELICES EN TODO EL PERÚ</h3>
+
+      <div class="mej-resenas">
+        <div class="mej-resena">
+          <div class="mej-resena__top">
+            <span class="mej-resena__estrellas">★★★★★</span>
+            <span class="mej-resena__verificado">✔️ Compra verificada</span>
+          </div>
+          <p class="mej-resena__texto">"Pedí la repisa de cocina y el estante para la sala juntos. Llegó todo bien empacado y quedó igual a las fotos."</p>
+          <div class="mej-resena__autor">— Mario G. · Arequipa</div>
+        </div>
+        <div class="mej-resena">
+          <div class="mej-resena__top">
+            <span class="mej-resena__estrellas">★★★★★</span>
+            <span class="mej-resena__verificado">✔️ Compra verificada</span>
+          </div>
+          <p class="mej-resena__texto">"La calidad del metal se siente, no es de esos muebles que se tambalean. Fácil de armar, en menos de 20 minutos."</p>
+          <div class="mej-resena__autor">— Carla M. · Lima, San Miguel</div>
+        </div>
+        <div class="mej-resena">
+          <div class="mej-resena__top">
+            <span class="mej-resena__estrellas">★★★★★</span>
+            <span class="mej-resena__verificado">✔️ Compra verificada</span>
+          </div>
+          <p class="mej-resena__texto">"Pagué al recibirlo, todo tal cual la foto. La mesa de noche quedó preciosa en mi cuarto."</p>
+          <div class="mej-resena__autor">— Roberto T. · Callao</div>
+        </div>
+      </div>
+
+      <h3 class="seccion-titulo-centrado" style="margin-top: 40px;">ENVÍOS GARANTIZADOS A TODO EL PERÚ</h3>
+
+      <div class="carrusel-social" data-carrusel data-dir="izquierda">
+        <div class="carrusel-social__track">
+        <img src="assets/images/envio-paquete-1.jpg" alt="Envío 1" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-2.jpg" alt="Envío 2" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-3.jpg" alt="Envío 3" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-4.jpg" alt="Envío 4" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-5.jpg" alt="Envío 5" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-6.jpg" alt="Envío 6" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-7.jpg" alt="Envío 7" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-8.jpg" alt="Envío 8" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-1.jpg" aria-hidden="true" alt="Envío 1" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-2.jpg" aria-hidden="true" alt="Envío 2" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-3.jpg" aria-hidden="true" alt="Envío 3" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-4.jpg" aria-hidden="true" alt="Envío 4" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-5.jpg" aria-hidden="true" alt="Envío 5" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-6.jpg" aria-hidden="true" alt="Envío 6" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-7.jpg" aria-hidden="true" alt="Envío 7" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-paquete-8.jpg" aria-hidden="true" alt="Envío 8" loading="lazy" draggable="false" />
+        </div>
+      </div>
+
+      <div class="beneficios-finales">
+        <div>
+          <div style="font-size:22px;">🚚</div>
+          <div class="beneficio-final__titulo">ENVÍOS A TODO EL PERÚ</div>
+          <div class="beneficio-final__texto">Llegamos a tu ciudad</div>
+        </div>
+        <div>
+          <div style="font-size:22px;">💰</div>
+          <div class="beneficio-final__titulo">PAGO CONTRA ENTREGA</div>
+          <div class="beneficio-final__texto">Paga cuando recibes tu pedido</div>
+        </div>
+        <div>
+          <div style="font-size:22px;">🛡️</div>
+          <div class="beneficio-final__titulo">SEGURO Y CONFIABLE</div>
+          <div class="beneficio-final__texto">Tu compra está protegida</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ — PREGUNTAS FRECUENTES  (⚠️ editá según tu operación)
+       ============================================================ -->
+  <section class="mej-faq">
+    <div class="contenedor">
+      <h3 class="mej-titulo">Preguntas frecuentes</h3>
+      <div class="mej-faq__lista">
+        <details class="mej-faq__item">
+          <summary>¿Cómo pago? ¿Es seguro?</summary>
+          <div class="mej-faq__resp">Pagas <strong>contra entrega</strong>: recién abonas cuando recibes el producto en tu casa si es en Lima, o en la agencia Shalom al momento del recojo si es en provincia. No pagas nada por adelantado.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Puedo pedir varios productos juntos?</summary>
+          <div class="mej-faq__resp">Sí. Agrega todos los muebles que quieras al carrito (incluso de distintos ambientes) y arma un solo pedido con un solo envío.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Cuánto demora el envío?</summary>
+          <div class="mej-faq__resp">En Lima te llega el mismo día o al día siguiente de haber realizado tu pedido. A provincia, entre 2 y 3 días hábiles vía Shalom. Te pasamos el seguimiento por WhatsApp.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Qué medios de pago aceptan?</summary>
+          <div class="mej-faq__resp">Utilizamos <strong>todos los medios de pago</strong>: Yape, Plin, Transferencia (BCP, Interbank, BBVA, todos los bancos), Tarjeta de crédito con Izipay.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿El envío tiene costo?</summary>
+          <div class="mej-faq__resp">Realizamos <strong>envíos a todo el Perú con pago contraentrega</strong>. En Lima lo pagas junto con el producto al recibirlo. A provincia, coordinamos un pequeño <strong>adelanto de S/ 20</strong> por WhatsApp para el flete de Shalom, y la diferencia la pagas al recoger tu pedido.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Es difícil de armar?</summary>
+          <div class="mej-faq__resp">No. Nuestros muebles son semiarmables: llegan la mayoría de piezas ya ensambladas y se terminan de armar en pocos minutos, con herramientas simples.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Tiene garantía?</summary>
+          <div class="mej-faq__resp">Sí, <strong>garantía de 30 días</strong>. Si no quedas conforme, te devolvemos tu dinero.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mini-beneficios-footer">
+    <div class="contenedor">
+      <div>
+        <div class="mini-beneficios-footer__item-titulo">🚚 ENVÍOS RÁPIDOS A TODO EL PERÚ</div>
+        <div class="mini-beneficios-footer__item-texto">A todo el Perú incluso provincia</div>
+      </div>
+      <div>
+        <div class="mini-beneficios-footer__item-titulo">💰 PAGO CONTRA ENTREGA</div>
+        <div class="mini-beneficios-footer__item-texto">Paga al recibir tu pedido</div>
+      </div>
+      <div>
+        <div class="mini-beneficios-footer__item-titulo">🛡️ GARANTÍA DE 30 DÍAS</div>
+        <div class="mini-beneficios-footer__item-texto">Si no estás feliz, te devolvemos tu dinero</div>
+      </div>
+      <div>
+        <div class="mini-beneficios-footer__item-titulo">🎧 ATENCIÓN PERSONALIZADA</div>
+        <div class="mini-beneficios-footer__item-texto">Te ayudamos por WhatsApp</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       BOTÓN FLOTANTE DE CARRITO
+       ============================================================ -->
+  <button type="button" class="carrito-flotante" id="whatsapp-flotante" data-abrir-carrito data-carrito-badge-wrap style="display:none;">
+    🛒
+    <span class="carrito-flotante__contador" data-carrito-contador>0</span>
+  </button>
+
+  <!-- ============================================================
+       MODAL DE PRODUCTO (detalle + color + cantidad)
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-producto-overlay">
+    <div class="modal-producto" role="dialog" aria-modal="true" aria-labelledby="producto-modal-nombre">
+      <button class="modal-producto__cerrar" data-cerrar-producto aria-label="Cerrar">✕</button>
+
+      <div class="producto-modal__img-wrap">
+        <img id="producto-modal-img" src="" alt="" />
+      </div>
+
+      <h3 id="producto-modal-nombre"></h3>
+      <div id="producto-modal-medida"></div>
+
+      <div class="producto-modal__precios">
+        <span id="producto-modal-precio"></span>
+        <span id="producto-modal-precio-tachado"></span>
+        <span id="producto-modal-descuento-badge"></span>
+      </div>
+
+      <div id="producto-modal-colores-bloque">
+        <div class="producto-modal__bloque-titulo">Elige un color</div>
+        <div class="producto-modal__colores" id="producto-modal-colores"></div>
+      </div>
+
+      <div class="producto-modal__bloque-titulo">Características</div>
+      <ul class="producto-modal__caracteristicas" id="producto-modal-caracteristicas"></ul>
+
+      <div class="producto-modal__pie">
+        <div class="producto-modal__cantidad">
+          <button type="button" id="btn-cantidad-menos" aria-label="Restar cantidad">−</button>
+          <span id="producto-modal-cantidad-valor">1</span>
+          <button type="button" id="btn-cantidad-mas" aria-label="Sumar cantidad">+</button>
+        </div>
+        <button type="button" id="btn-agregar-carrito">Agregar al pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CARRITO (drawer lateral)
+       ============================================================ -->
+  <div class="carrito-overlay" id="carrito-overlay">
+    <aside class="carrito-drawer" role="dialog" aria-modal="true" aria-label="Tu pedido">
+      <div class="carrito-drawer__header">
+        <span class="carrito-drawer__titulo">🛒 Tu pedido</span>
+        <button type="button" class="carrito-drawer__cerrar" data-cerrar-carrito aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="carrito-vacio" id="carrito-vacio">
+        Todavía no agregaste ningún producto.<br />
+        Elige un mueble del catálogo para empezar tu pedido.
+      </div>
+
+      <div id="carrito-lista"></div>
+
+      <div class="carrito-drawer__footer" id="carrito-footer" style="display:none;">
+        <div class="carrito-drawer__subtotal">
+          <span>Subtotal</span>
+          <span class="carrito-drawer__subtotal-valor" id="carrito-subtotal-valor">S/ 0.00</span>
+        </div>
+        <button type="button" class="carrito-drawer__continuar" data-abrir-checkout data-cerrar-carrito>
+          Continuar pedido
+        </button>
+        <div class="carrito-drawer__aviso">🚚 Envíos a todo el Perú · Pago contraentrega</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ============================================================
+       MODAL DE CHECKOUT (Lima / Provincia)
+       ============================================================ -->
+  <div class="modal-overlay" id="modal-checkout-overlay">
+    <div class="modal-checkout" role="dialog" aria-modal="true" aria-labelledby="modal-checkout-titulo">
+      <button class="modal-checkout__cerrar" data-cerrar-checkout aria-label="Cerrar formulario">✕</button>
+
+      <!-- ---- Formulario ---- -->
+      <div id="modal-checkout-formulario">
+        <div class="modal-checkout__header">
+          <span class="modal-checkout__header-icono">✅</span>
+          <div>
+            <div class="modal-checkout__titulo" id="modal-checkout-titulo">Completa tus datos</div>
+            <div class="modal-checkout__subtitulo">Paga al recibir tu pedido</div>
+          </div>
+        </div>
+
+        <!-- ===== PASO 1 — pantalla completa: elegir Lima o Provincia ANTES de mostrar cualquier campo ===== -->
+        <div id="modal-checkout-paso1" class="paso-envio-full">
+          <div class="paso-envio-full__titulo">¿A dónde enviamos tu pedido?</div>
+          <div class="paso-envio-full__subtitulo">Elige tu destino para continuar con tus datos</div>
+
+          <button class="paso-envio-full__opcion" data-paso1-tipo="lima" type="button">
+            <span class="paso-envio-full__icono">🏠</span>
+            <div class="paso-envio-full__texto">
+              <div class="paso-envio-full__fila-titulo">
+                <span class="paso-envio-full__titulo-opcion">Lima - Paga en casa</span>
+                <span class="badge-gratis">Contraentrega</span>
+              </div>
+              <div class="paso-envio-full__subtitulo-opcion">Pagas cuando recibes</div>
+            </div>
+            <span class="paso-envio-full__flecha">›</span>
+          </button>
+
+          <button class="paso-envio-full__opcion" data-paso1-tipo="provincia" type="button">
+            <span class="paso-envio-full__icono">📦</span>
+            <div class="paso-envio-full__texto">
+              <div class="paso-envio-full__fila-titulo">
+                <span class="paso-envio-full__titulo-opcion">Provincia - Envió por Shalom</span>
+                <span class="badge-gratis">Contraentrega</span>
+              </div>
+              <div class="paso-envio-full__subtitulo-opcion">Adelanto de S/. 20 y diferencia pagas al recoger</div>
+            </div>
+            <span class="paso-envio-full__flecha">›</span>
+          </button>
+        </div>
+
+        <!-- ===== Resto del formulario: solo aparece DESPUÉS de elegir Lima/Provincia ===== -->
+        <div id="modal-checkout-resto">
+        <div class="modal-checkout__grid">
+          <!-- Columna izquierda: formulario -->
+          <div>
+            <div class="selector-envio-mini">
+              <span class="selector-envio-mini__label">Destino:</span>
+              <div class="selector-envio">
+                <button class="selector-envio__opcion activa" data-tipo-envio="lima" type="button">
+                  <span class="selector-envio__icono">🏠</span>
+                  <div>
+                    <div class="selector-envio__titulo">Lima - Paga en casa <span class="badge-gratis badge-gratis--mini">Contraentrega</span></div>
+                    <div class="selector-envio__subtitulo">Pagas cuando recibes</div>
+                  </div>
+                </button>
+                <button class="selector-envio__opcion" data-tipo-envio="provincia" type="button">
+                  <span class="selector-envio__icono">📦</span>
+                  <div>
+                    <div class="selector-envio__titulo">Provincia - Envió por Shalom <span class="badge-gratis badge-gratis--mini">Contraentrega</span></div>
+                    <div class="selector-envio__subtitulo">Adelanto de S/. 20 y diferencia pagas al recoger</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="modal-paso">
+              <span class="modal-paso__numero">2</span>
+              <span id="modal-checkout-titulo-paso2">Ingresa tus datos de entrega</span>
+            </div>
+
+            <!-- ===== Campos: ENVÍO A LIMA ===== -->
+            <div data-seccion-envio="lima" class="activa">
+              <div class="campo">
+                <label for="campo-nombre-lima">Nombre completo</label>
+                <input type="text" id="campo-nombre-lima" placeholder="Ej: Juan Pérez" />
+                <span class="campo__error-texto" data-error-de="campo-nombre-lima"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-whatsapp-lima">WhatsApp</label>
+                <input type="tel" id="campo-whatsapp-lima" placeholder="Ej: 912 345 678" />
+                <span class="campo__error-texto" data-error-de="campo-whatsapp-lima"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-distrito">Distrito</label>
+                <input type="text" id="campo-distrito" placeholder="Ej: Los Olivos" />
+                <span class="campo__error-texto" data-error-de="campo-distrito"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-direccion">Dirección exacta</label>
+                <input type="text" id="campo-direccion" placeholder="Ej: Av. Los Próceres 123, Urb. Los Jardines" />
+                <span class="campo__error-texto" data-error-de="campo-direccion"></span>
+
+                <!-- Mapa de ubicación de entrega (opcional pero recomendado) -->
+                <div class="mapa-entrega">
+                  <div class="mapa-entrega__barra">
+                    <input type="text" id="mapa-buscar" class="mapa-entrega__buscar"
+                           placeholder="🔎 Buscá tu calle o distrito (ej: Risso, Lince)" />
+                    <button type="button" id="mapa-btn-buscar" class="mapa-entrega__btn-buscar">Buscar</button>
+                  </div>
+                  <ul id="mapa-resultados" class="mapa-entrega__resultados" style="display:none;"></ul>
+                  <div id="mapa-leaflet" class="mapa-entrega__mapa"></div>
+                  <div class="mapa-entrega__pie">
+                    <button type="button" id="btn-ubicacion-gps" class="mapa-entrega__gps">
+                      📍 Mi ubicación actual
+                    </button>
+                    <button type="button" id="btn-confirmar-ubicacion" class="mapa-entrega__confirmar">
+                      ✓ Confirmar ubicación
+                    </button>
+                  </div>
+                  <div id="mapa-estado" class="mapa-entrega__estado">📍 Arrastrá el pin justo a tu puerta y tocá Confirmar</div>
+                </div>
+                <span class="campo__ayuda">1) Buscá tu calle o distrito para acercarte. 2) Arrastrá el pin al número exacto de tu puerta. El número de casa lo escribís arriba en “Dirección exacta”.</span>
+              </div>
+            </div>
+
+            <!-- ===== Campos: ENVÍO A PROVINCIA ===== -->
+            <div data-seccion-envio="provincia">
+              <div class="campo">
+                <label for="campo-nombre-provincia">Nombre completo</label>
+                <input type="text" id="campo-nombre-provincia" placeholder="Ej: Juan Pérez" />
+                <span class="campo__error-texto" data-error-de="campo-nombre-provincia"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-dni">DNI</label>
+                <input type="text" id="campo-dni" placeholder="Ej: 12345678" maxlength="8" />
+                <span class="campo__error-texto" data-error-de="campo-dni"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-whatsapp-provincia">WhatsApp</label>
+                <input type="tel" id="campo-whatsapp-provincia" placeholder="Ej: 912 345 678" />
+                <span class="campo__error-texto" data-error-de="campo-whatsapp-provincia"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-departamento">Departamento</label>
+                <select id="campo-departamento">
+                  <option value="">Ej: Arequipa</option>
+                  <option>Amazonas</option>
+                  <option>Áncash</option>
+                  <option>Apurímac</option>
+                  <option>Arequipa</option>
+                  <option>Ayacucho</option>
+                  <option>Cajamarca</option>
+                  <option>Cusco</option>
+                  <option>Huancavelica</option>
+                  <option>Huánuco</option>
+                  <option>Ica</option>
+                  <option>Junín</option>
+                  <option>La Libertad</option>
+                  <option>Lambayeque</option>
+                  <option>Loreto</option>
+                  <option>Madre de Dios</option>
+                  <option>Moquegua</option>
+                  <option>Pasco</option>
+                  <option>Piura</option>
+                  <option>Puno</option>
+                  <option>San Martín</option>
+                  <option>Tacna</option>
+                  <option>Tumbes</option>
+                  <option>Ucayali</option>
+                </select>
+                <span class="campo__error-texto" data-error-de="campo-departamento"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-ciudad-destino">Ciudad / Destino</label>
+                <input type="text" id="campo-ciudad-destino" placeholder="Ej: Arequipa, Cusco, Trujillo" />
+                <span class="campo__error-texto" data-error-de="campo-ciudad-destino"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-sede-shalom">Sede de Shalom más cercana a tu domicilio</label>
+                <input type="text" id="campo-sede-shalom" placeholder="Ej: Shalom Arequipa, Shalom Cusco, Shalom Trujillo" />
+                <span class="campo__error-texto" data-error-de="campo-sede-shalom"></span>
+              </div>
+
+              <div class="aviso-shalom">
+                <span class="aviso-shalom__icono">ℹ️</span>
+                <div>
+                  <div class="aviso-shalom__titulo">Tu pedido será enviado por Shalom.</div>
+                  <div class="aviso-shalom__texto">Indica la sede de Shalom más cercana a tu domicilio para coordinar la entrega.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha: resumen -->
+          <div class="resumen-pedido">
+            <div class="resumen-pedido__titulo">Resumen de tu pedido</div>
+
+            <div id="resumen-lista-productos"></div>
+
+            <div class="resumen-pedido__linea">
+              <span>Envío</span>
+              <span id="resumen-linea-envio-texto">Pago contraentrega</span>
+            </div>
+
+            <div class="resumen-pedido__total">
+              <span class="resumen-pedido__total-label">Total a pagar</span>
+              <span class="resumen-pedido__total-valor" id="resumen-total-valor">S/ 0.00</span>
+            </div>
+
+            <div class="resumen-pedido__garantias">
+              <div class="resumen-pedido__garantia">
+                <span class="resumen-pedido__garantia-icono">💳</span>
+                <div>
+                  <span class="resumen-pedido__garantia-titulo">Pago contra entrega</span>
+                  <span class="resumen-pedido__garantia-texto">Paga cuando recibas tu pedido</span>
+                </div>
+              </div>
+              <div class="resumen-pedido__garantia">
+                <span class="resumen-pedido__garantia-icono">🚚</span>
+                <div>
+                  <span class="resumen-pedido__garantia-titulo">Envíos a todo el Perú</span>
+                  <span class="resumen-pedido__garantia-texto">Rápido y seguro, a Lima y a provincias</span>
+                </div>
+              </div>
+              <div class="resumen-pedido__garantia">
+                <span class="resumen-pedido__garantia-icono">✅</span>
+                <div>
+                  <span class="resumen-pedido__garantia-titulo">Garantía de satisfacción</span>
+                  <span class="resumen-pedido__garantia-texto">Si no estás feliz, te devolvemos tu dinero</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-confirmar-pedido" id="btn-confirmar-pedido">
+          <span>✅ CONFIRMAR PEDIDO</span>
+          <span class="btn-confirmar-pedido__sub">Te contactaremos para coordinar la entrega</span>
+        </button>
+
+        <div class="modal-checkout__privacidad">
+          🔒 Tus datos están 100% seguros y protegidos.
+        </div>
+        </div><!-- /#modal-checkout-resto -->
+      </div>
+
+      <!-- ---- Pantalla de éxito ---- -->
+      <div class="modal-checkout__exito" id="modal-checkout-exito">
+        <div class="modal-checkout__exito-icono">✓</div>
+        <div class="modal-checkout__exito-titulo">¡Pedido confirmado!</div>
+        <div class="modal-checkout__exito-texto">
+          Tu código de pedido es <strong id="exito-codigo-pedido">—</strong>.<br />
+          Se abrió WhatsApp con todos tus datos: solo tienes que <strong>presionar enviar</strong> para que nos llegue.
+          Si no se abrió solo, usa el botón verde de aquí abajo.
+        </div>
+        <a href="#" id="btn-exito-whatsapp" target="_blank" rel="noopener" class="modal-checkout__exito-whatsapp">
+          Enviar mi pedido por WhatsApp
+        </a>
+        <button type="button" class="modal-checkout__exito-cerrar" data-cerrar-checkout>Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="js/config.js"></script>
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/pedidos.js"></script>
+  <script src="js/pixels.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/checkout-modal.js"></script>
+  <script src="js/catalogo.js"></script>
+  <script src="js/landing.js"></script>
+  <script src="js/carrusel-clientes.js"></script>
+</body>
+</html>
