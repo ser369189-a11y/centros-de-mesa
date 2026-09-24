@@ -22,6 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
   let productoAbiertoId = null;
   let colorSeleccionadoId = null;
   let cantidadSeleccionada = 1;
+  let galeriaIndice = 0;
+  let galeriaTimer = null;
+  let galeriaPointerId = null;
+  let galeriaPointerX = 0;
+  let galeriaDragX = 0;
 
   // ----------------------------------------------------------
   // FILTROS
@@ -103,6 +108,132 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ----------------------------------------------------------
+  // GALERÍA DE PRODUCTO — autoplay cada 4s + swipe/drag + flechas
+  // ----------------------------------------------------------
+  function obtenerImagenesProducto(producto) {
+    const lista = Array.isArray(producto.imagenes) && producto.imagenes.length
+      ? producto.imagenes.slice()
+      : [producto.imagen];
+    return lista;
+  }
+
+  function detenerAutoplayGaleria() {
+    if (galeriaTimer) {
+      clearInterval(galeriaTimer);
+      galeriaTimer = null;
+    }
+  }
+
+  function iniciarAutoplayGaleria() {
+    detenerAutoplayGaleria();
+    galeriaTimer = setInterval(function () {
+      moverGaleria(1);
+    }, 4000);
+  }
+
+  function actualizarGaleria() {
+    const track = $("#producto-modal-galeria-track");
+    const dots = $all("[data-galeria-dot]");
+    if (!track) return;
+    track.style.transform = "translate3d(" + (-galeriaIndice * 100) + "%, 0, 0)";
+    dots.forEach(function (dot, index) {
+      dot.classList.toggle("activo", index === galeriaIndice);
+      dot.setAttribute("aria-current", index === galeriaIndice ? "true" : "false");
+    });
+  }
+
+  function moverGaleria(direccion) {
+    const track = $("#producto-modal-galeria-track");
+    if (!track) return;
+    const total = track.children.length;
+    if (!total) return;
+    galeriaIndice = (galeriaIndice + direccion + total) % total;
+    actualizarGaleria();
+  }
+
+  function configurarGaleriaProducto(producto) {
+    detenerAutoplayGaleria();
+    galeriaIndice = 0;
+    const imagenes = obtenerImagenesProducto(producto);
+    const track = $("#producto-modal-galeria-track");
+    const dots = $("#producto-modal-galeria-dots");
+    if (!track || !dots) return;
+
+    track.innerHTML = "";
+    dots.innerHTML = "";
+
+    imagenes.forEach(function (src, index) {
+      const slide = document.createElement("div");
+      slide.className = "producto-modal__slide";
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = producto.nombre + " — vista " + (index + 1);
+      img.draggable = false;
+      img.loading = index === 0 ? "eager" : "lazy";
+      slide.appendChild(img);
+      track.appendChild(slide);
+
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "producto-modal__dot" + (index === 0 ? " activo" : "");
+      dot.setAttribute("data-galeria-dot", "true");
+      dot.setAttribute("aria-label", "Ver imagen " + (index + 1));
+      dot.addEventListener("click", function () {
+        galeriaIndice = index;
+        actualizarGaleria();
+        iniciarAutoplayGaleria();
+      });
+      dots.appendChild(dot);
+    });
+
+    actualizarGaleria();
+    iniciarAutoplayGaleria();
+  }
+
+  function inicializarInteraccionGaleria() {
+    const viewport = $("#producto-modal-galeria");
+    if (!viewport) return;
+
+    $("#producto-modal-galeria-prev").addEventListener("click", function () {
+      moverGaleria(-1);
+      iniciarAutoplayGaleria();
+    });
+    $("#producto-modal-galeria-next").addEventListener("click", function () {
+      moverGaleria(1);
+      iniciarAutoplayGaleria();
+    });
+
+    viewport.addEventListener("pointerdown", function (evento) {
+      galeriaPointerId = evento.pointerId;
+      galeriaPointerX = evento.clientX;
+      galeriaDragX = 0;
+      viewport.setPointerCapture(evento.pointerId);
+      viewport.classList.add("arrastrando");
+      detenerAutoplayGaleria();
+    });
+
+    viewport.addEventListener("pointermove", function (evento) {
+      if (galeriaPointerId !== evento.pointerId) return;
+      galeriaDragX = evento.clientX - galeriaPointerX;
+    });
+
+    function terminarArrastre(evento) {
+      if (galeriaPointerId !== evento.pointerId) return;
+      const distancia = galeriaDragX;
+      galeriaPointerId = null;
+      viewport.classList.remove("arrastrando");
+      if (Math.abs(distancia) > 45) moverGaleria(distancia < 0 ? 1 : -1);
+      iniciarAutoplayGaleria();
+    }
+
+    viewport.addEventListener("pointerup", terminarArrastre);
+    viewport.addEventListener("pointercancel", terminarArrastre);
+    viewport.addEventListener("pointerleave", function (evento) {
+      if (galeriaPointerId === evento.pointerId) terminarArrastre(evento);
+    });
+  }
+
+  // ----------------------------------------------------------
   // MODAL DE PRODUCTO (detalle + selector de color + cantidad)
   // ----------------------------------------------------------
   function abrirModalProducto(productoId) {
@@ -115,8 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
     colorSeleccionadoId = producto.colores[0] ? producto.colores[0].id : null;
     cantidadSeleccionada = 1;
 
-    $("#producto-modal-img").src = producto.imagen;
-    $("#producto-modal-img").alt = producto.nombre;
+    configurarGaleriaProducto(producto);
     $("#producto-modal-nombre").textContent = producto.nombre;
     $("#producto-modal-medida").textContent = "📐 " + producto.medida;
     $("#producto-modal-precio").textContent = formatearMoneda(producto.precio);
@@ -174,11 +304,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function cerrarModalProducto() {
+    detenerAutoplayGaleria();
     $("#modal-producto-overlay").classList.remove("abierto");
     document.body.style.overflow = "";
   }
 
   function inicializarModalProducto() {
+    inicializarInteraccionGaleria();
     $all("[data-cerrar-producto]").forEach(function (el) {
       el.addEventListener("click", cerrarModalProducto);
     });

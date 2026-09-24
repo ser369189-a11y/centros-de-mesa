@@ -85,3 +85,7 @@ Es un sitio 100% estático: sirve cualquier hosting.
   (o usa `render.yaml`).
 - **Netlify / Vercel / GitHub Pages**: arrastra la carpeta o conecta el
   repo. Sin build.
+
+
+### Galería de productos
+Cada producto ahora incluye 5 imágenes en el carrusel del detalle: la original + 4 imágenes de ejemplo generadas para reemplazarlas por fotos reales cuando quieras. Edita `imagenes` en `js/productos.js`. El carrusel avanza cada 4 segundos y permite flechas, toque/deslizamiento y arrastre con mouse.

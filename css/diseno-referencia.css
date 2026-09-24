@@ -324,3 +324,194 @@ body {
   .catalogo__card-btn { padding: 10px 8px; font-size: 12px; }
   .franja-confianza { padding: 62px 0; }
 }
+
+
+/* ============================================================
+   MEJORAS SOLICITADAS — galería, carrito, beneficios y logos
+   ============================================================ */
+
+/* 1) Galería de producto: 5 vistas, autoplay 4s, swipe y drag */
+.producto-modal__galeria {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: none;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+.producto-modal__galeria.arrastrando { cursor: grabbing; }
+.producto-modal__galeria-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform .38s cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+.producto-modal__galeria.arrastrando .producto-modal__galeria-track {
+  transition: none;
+}
+.producto-modal__slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 100%;
+}
+.producto-modal__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.producto-modal__galeria-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.92);
+  color: #171717;
+  box-shadow: 0 5px 18px rgba(0,0,0,.15);
+  font-size: 30px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.producto-modal__galeria-arrow--prev { left: 12px; }
+.producto-modal__galeria-arrow--next { right: 12px; }
+.producto-modal__galeria-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 3;
+}
+.producto-modal__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.62);
+  border: 1px solid rgba(0,0,0,.12);
+  transition: transform .2s ease, background .2s ease;
+}
+.producto-modal__dot.activo {
+  background: #fff;
+  transform: scale(1.35);
+}
+
+/* 2) El carrito queda por encima del header sticky: el primer producto se ve al abrir */
+.carrito-overlay {
+  z-index: 2000;
+}
+.carrito-drawer {
+  position: relative;
+  z-index: 2001;
+  padding-top: max(18px, env(safe-area-inset-top));
+}
+.modal-overlay#modal-producto-overlay { z-index: 2500; }
+.modal-overlay#modal-checkout-overlay { z-index: 3000; }
+
+/* 3) Beneficios finales: iconos más grandes, color y distribución compacta */
+.beneficios-finales {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+  margin-top: 36px;
+  padding: 0;
+}
+.beneficios-finales > div {
+  min-height: 150px;
+  padding: 22px 12px;
+  border: 1px solid var(--ref-line);
+  border-radius: 18px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.beneficios-finales > div > div:first-child {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px !important;
+  margin-bottom: 10px;
+  background: #f5eee5;
+}
+.beneficio-final__titulo { font-size: 12px; line-height: 1.3; }
+.beneficio-final__texto { font-size: 12px; line-height: 1.4; margin-top: 3px; }
+
+/* 4) Logos de couriers y pagos: conservar sus colores originales */
+.logos-fila img {
+  filter: none !important;
+  opacity: 1 !important;
+  background: transparent;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.logos-fila img:hover { transform: translateY(-2px); opacity: .9 !important; }
+.logos-fila {
+  gap: 26px;
+}
+.logos-fila img { max-width: 120px; }
+.logos-fila--pagos img { max-width: 105px; }
+
+/* Footer de 4 beneficios: icono grande y visual */
+.mini-beneficios-footer {
+  background: #f8f7f4;
+  color: #171717;
+  padding: 34px 0 38px;
+}
+.mini-beneficios-footer .contenedor {
+  gap: 16px;
+}
+.mini-beneficios-footer .contenedor > div {
+  padding: 18px 10px;
+  border: 1px solid #e8e4dd;
+  border-radius: 18px;
+  background: #fff;
+  min-height: 128px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mini-beneficios-footer .contenedor > div::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background: #f1e5d5;
+  font-size: 27px;
+}
+.mini-beneficios-footer .contenedor > div:nth-child(1)::before { content: '🚚'; }
+.mini-beneficios-footer .contenedor > div:nth-child(2)::before { content: '💰'; }
+.mini-beneficios-footer .contenedor > div:nth-child(3)::before { content: '🛡️'; }
+.mini-beneficios-footer .contenedor > div:nth-child(4)::before { content: '🎧'; }
+.mini-beneficios-footer__item-titulo { color: #171717; font-size: 12px; }
+.mini-beneficios-footer__item-texto { color: #77736d; font-size: 11px; line-height: 1.45; }
+
+@media (min-width: 760px) {
+  .beneficios-finales { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .beneficios-finales > div { min-height: 160px; }
+}
+@media (max-width: 600px) {
+  .producto-modal__galeria { aspect-ratio: 4 / 5; }
+  .producto-modal__galeria-arrow { width: 38px; height: 38px; font-size: 27px; }
+  .beneficios-finales { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .logos-fila { gap: 18px; }
+  .logos-fila img { max-width: 105px; }
+  .logos-fila--pagos img { max-width: 92px; }
+  .mini-beneficios-footer .contenedor { grid-template-columns: repeat(2, 1fr); }
+}

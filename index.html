@@ -325,8 +325,11 @@
     <div class="modal-producto" role="dialog" aria-modal="true" aria-labelledby="producto-modal-nombre">
       <button class="modal-producto__cerrar" data-cerrar-producto aria-label="Cerrar">✕</button>
 
-      <div class="producto-modal__img-wrap">
-        <img id="producto-modal-img" src="" alt="" />
+      <div class="producto-modal__img-wrap producto-modal__galeria" id="producto-modal-galeria" aria-label="Galería de imágenes del producto">
+        <div class="producto-modal__galeria-track" id="producto-modal-galeria-track"></div>
+        <button type="button" class="producto-modal__galeria-arrow producto-modal__galeria-arrow--prev" id="producto-modal-galeria-prev" aria-label="Imagen anterior">‹</button>
+        <button type="button" class="producto-modal__galeria-arrow producto-modal__galeria-arrow--next" id="producto-modal-galeria-next" aria-label="Imagen siguiente">›</button>
+        <div class="producto-modal__galeria-dots" id="producto-modal-galeria-dots" aria-label="Seleccionar imagen"></div>
       </div>
 
       <h3 id="producto-modal-nombre"></h3>
