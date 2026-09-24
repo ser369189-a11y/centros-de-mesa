@@ -1,0 +1,316 @@
+/* ============================================================
+   TEMA AMERCE — retema visual de Madrid Industrias
+   ------------------------------------------------------------
+   Este archivo se carga AL FINAL (después de variables.css,
+   landing.css, checkout-modal.css, mejoras_landing.css y
+   catalogo.css) y sobrescribe solo la parte VISUAL: paleta,
+   tipografía, header, hero, tarjetas de producto, badges,
+   testimonios, logos y botones.
+
+   No toca ningún id/clase que use JavaScript para lógica
+   (carrito, checkout, mapa, filtros): todos siguen intactos.
+   ============================================================ */
+
+/* ---------- 1. Paleta y tipografía ---------- */
+:root {
+  --color-marca-negro: #121212;
+  --color-marca-madera: #a9743f;
+  --color-marca-madera-oscuro: #8a5c30;
+  --color-marca-beige: #f3ede3;
+
+  --color-texto: #161616;
+  --color-texto-secundario: #5b5b5b;
+  --color-texto-tenue: #8c8c8c;
+  --color-borde: #e8e5e0;
+  --color-fondo: #ffffff;
+  --color-fondo-gris: #f6f5f2;
+
+  --color-verde: #1a7a41;
+  --color-verde-claro: #e8f5ec;
+  --color-rojo: #d23c3c;
+  --color-rojo-claro: #fbeaea;
+  --color-amarillo-estrella: #f5a623;
+
+  --font-principal: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --radio-sm: 8px;
+  --radio-md: 12px;
+  --radio-lg: 20px;
+  --sombra-sm: 0 1px 2px rgba(20, 20, 20, 0.06);
+  --sombra-md: 0 6px 20px rgba(20, 20, 20, 0.08);
+  --sombra-lg: 0 16px 40px rgba(20, 20, 20, 0.14);
+}
+
+body { letter-spacing: 0; }
+
+h1, h2, h3, h4, .catalogo__titulo, .mej-titulo, .seccion-titulo-centrado {
+  font-family: var(--font-principal);
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 2. Header fijo (logo + carrito) ---------- */
+.mi-header {
+  position: sticky;
+  top: 0;
+  z-index: 400;
+  background: #fff;
+  border-bottom: 1px solid var(--color-borde);
+}
+.mi-header__inner {
+  max-width: var(--ancho-maximo);
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mi-header__logo {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-marca-negro);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mi-header__logo span { color: var(--color-marca-madera); }
+.mi-header__acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mi-header__cart {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-fondo-gris);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--color-marca-negro);
+  transition: background 0.15s ease;
+}
+.mi-header__cart:hover { background: var(--color-marca-beige); }
+.mi-header__cart-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: var(--color-rojo);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid #fff;
+}
+
+/* Con el header propio, el FAB original de abajo pasa a ser
+   solo el acceso rápido en móvil mientras se hace scroll. */
+.carrito-flotante {
+  background: var(--color-marca-negro);
+  box-shadow: var(--sombra-lg);
+}
+
+/* ---------- 3. Barras superiores: una sola, limpia ---------- */
+.trust-bar { display: none; }
+
+.barra-confianza {
+  background: var(--color-marca-negro);
+  padding: 8px 0;
+}
+.barra-confianza__item {
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  opacity: 0.95;
+}
+.barra-confianza__sep { color: rgba(255,255,255,0.35); }
+.barra-confianza__estrellas { color: var(--color-amarillo-estrella); }
+
+/* ---------- 4. Hero de marca ---------- */
+.hero-marca {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.72) 100%),
+    url("../assets/images/productos/mesa-recibidora-sala.jpg") center/cover no-repeat;
+  padding: 64px 0 56px;
+}
+.hero-marca__logo {
+  color: #e7cba6;
+  font-weight: 700;
+}
+.hero-marca__titulo {
+  font-weight: 800;
+}
+.hero-marca__subtitulo { color: #eae5dc; }
+.hero-marca__cta {
+  background: #fff;
+  color: var(--color-marca-negro);
+  border-radius: 999px;
+  font-weight: 700;
+}
+.hero-marca__cta:hover { background: var(--color-marca-beige); }
+
+/* ---------- 5. Catálogo: filtros + tarjetas ---------- */
+.catalogo__filtro.activo { background: var(--color-marca-negro); }
+
+.catalogo__grid { gap: 16px; }
+@media (min-width: 640px) { .catalogo__grid { gap: 20px; } }
+
+.catalogo__card {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: none;
+}
+.catalogo__card:hover {
+  box-shadow: var(--sombra-md);
+  transform: translateY(-3px);
+}
+.catalogo__card-img-wrap {
+  aspect-ratio: 1 / 1;
+  background: var(--color-fondo-gris);
+}
+.catalogo__card-img-wrap::before {
+  content: "Disponible";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  background: var(--color-verde);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.catalogo__card-badge {
+  top: 8px;
+  left: auto;
+  right: 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+}
+.catalogo__card-cuerpo { padding: 14px; gap: 6px; }
+.catalogo__card-nombre { font-size: 14.5px; }
+
+/* Fila de estrellas decorativa, igual que las cards de Amerce */
+.catalogo__card-medida {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.catalogo__card-medida::before {
+  content: "★★★★★";
+  color: var(--color-amarillo-estrella);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.catalogo__card-precios { margin-bottom: 10px; }
+.catalogo__card-precio { font-size: 18px; }
+
+.catalogo__card-btn {
+  background: #fff;
+  color: var(--color-marca-negro);
+  border: 1.5px solid var(--color-marca-negro);
+  border-radius: 999px;
+  font-size: 12.5px;
+  letter-spacing: 0.2px;
+}
+.catalogo__card-btn:hover {
+  background: var(--color-marca-negro);
+  color: #fff;
+}
+
+/* ---------- 6. Modal de producto: coherencia de botones ---------- */
+.producto-modal__color.activo {
+  background: var(--color-marca-negro);
+  border-color: var(--color-marca-negro);
+}
+#btn-agregar-carrito {
+  background: var(--color-marca-negro);
+  border-radius: 999px;
+}
+#btn-agregar-carrito:hover { background: var(--color-marca-madera); }
+.producto-modal__cantidad { border-radius: 999px; overflow: hidden; }
+
+/* ---------- 7. Franja de confianza: logos + tienda líder ---------- */
+.seccion-titulo-centrado {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.logos-fila img { filter: grayscale(1); opacity: 0.7; transition: opacity 0.15s ease, filter 0.15s ease; }
+.logos-fila img:hover { filter: grayscale(0); opacity: 1; }
+
+.tienda-lider {
+  background: var(--color-fondo-gris);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+  padding: 22px 20px;
+}
+.tienda-lider__titulo { color: var(--color-marca-negro); }
+.tienda-lider__barra { background: var(--color-marca-madera); }
+.tienda-lider__metrica-numero { color: var(--color-marca-negro); }
+
+/* ---------- 8. Testimonios con avatar circular ---------- */
+.mej-resena {
+  background: #fff;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  padding: 18px;
+  box-shadow: var(--sombra-sm);
+}
+.mej-resena__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-marca-beige);
+  color: var(--color-marca-madera-oscuro);
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.mej-resena__verificado {
+  background: var(--color-verde-claro);
+  color: var(--color-verde);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* ---------- 9. Beneficios / footer con icono en círculo ---------- */
+.beneficios-finales > div,
+.mini-beneficios-footer > .contenedor > div {
+  position: relative;
+}
+.mej-faq__item {
+  border-radius: var(--radio-md);
+  border: 1px solid var(--color-borde);
+  background: #fff;
+}
+
+/* ---------- 10. Botones de checkout: mismo lenguaje visual ---------- */
+.btn-confirmar-pedido {
+  background: var(--color-marca-negro);
+  border-radius: var(--radio-md);
+}
+.carrito-drawer__continuar {
+  background: var(--color-marca-negro);
+  border-radius: 999px;
+}
+.carrito-drawer__continuar:hover,
+.btn-confirmar-pedido:hover { background: var(--color-marca-madera); }

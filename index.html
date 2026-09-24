@@ -25,17 +25,30 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/landing.css" />
   <link rel="stylesheet" href="css/checkout-modal.css" />
   <link rel="stylesheet" href="css/mejoras_landing.css" />
   <link rel="stylesheet" href="css/catalogo.css" />
-  <link rel="stylesheet" href="css/diseno-referencia.css" />
+  <link rel="stylesheet" href="css/tema-amerce.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
+  <!-- ===== HEADER FIJO: logo + acceso al carrito ===== -->
+  <header class="mi-header">
+    <div class="mi-header__inner">
+      <div class="mi-header__logo">MADRID <span>INDUSTRIAS</span></div>
+      <div class="mi-header__acciones">
+        <button type="button" class="mi-header__cart" data-abrir-carrito data-carrito-badge-wrap aria-label="Ver carrito">
+          🛒
+          <span class="mi-header__cart-badge" data-carrito-contador>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
   <!-- ===== BARRA DE CONFIANZA (arriba de todo) ===== -->
   <div class="trust-bar">
     <div class="trust-bar__item trust-bar__item--destacado">🚚 ENVÍOS A TODO EL PERÚ · PAGO CONTRAENTREGA</div>
@@ -68,46 +81,17 @@
   </div>
 
   <!-- ============================================================
-       HEADER / NAVEGACIÓN — rediseño visual
-       ============================================================ -->
-  <header class="header-referencia">
-    <div class="header-referencia__inner">
-      <a class="header-referencia__logo" href="#top" aria-label="Madrid Industrias">
-        MADRID INDUSTRIAS
-        <span>muebles · diseño · hogar</span>
-      </a>
-      <nav class="header-referencia__nav" aria-label="Navegación principal">
-        <a href="#catalogo">Catálogo</a>
-        <a href="#confianza">Envíos y pagos</a>
-        <a href="#opiniones">Opiniones</a>
-        <a href="#faq">Preguntas</a>
-      </nav>
-      <div class="header-referencia__actions">
-        <button type="button" class="header-referencia__cart" data-abrir-carrito aria-label="Abrir pedido">🛒 <span>Mi pedido</span></button>
-        <a class="header-referencia__menu" href="#catalogo" aria-label="Ir al catálogo">☰</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- ============================================================
        HERO DE MARCA
        ============================================================ -->
-  <header class="hero-marca" id="top">
+  <header class="hero-marca">
     <div class="contenedor">
-      <div class="hero-marca__inner">
-        <div class="hero-marca__copy">
-          <div class="hero-marca__logo">MADRID INDUSTRIAS</div>
-          <h1 class="hero-marca__titulo">Diseño que transforma tus espacios</h1>
-          <p class="hero-marca__subtitulo">
-            Repisas, estantes, mesas y muebles auxiliares de estilo industrial —
-            madera + metal — para cocina, baño, sala, dormitorio y oficina.
-          </p>
-          <a href="#catalogo" class="hero-marca__cta">Explorar catálogo <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="hero-marca__media">
-          <img src="assets/images/productos/mesa-recibidora-sala.jpg" alt="Mueble de Madrid Industrias" fetchpriority="high" />
-        </div>
-      </div>
+      <div class="hero-marca__logo">MADRID INDUSTRIAS</div>
+      <h1 class="hero-marca__titulo">Diseño que transforma tus espacios</h1>
+      <p class="hero-marca__subtitulo">
+        Repisas, estantes, mesas y muebles auxiliares de estilo industrial —
+        madera + metal — para cocina, baño, sala, dormitorio y oficina.
+      </p>
+      <a href="#catalogo" class="hero-marca__cta">Ver catálogo</a>
     </div>
   </header>
 
@@ -123,7 +107,7 @@
   </main>
 
   <!-- ===== CONFIANZA: agencias de envío + métodos de pago ===== -->
-  <section class="franja-confianza franja-confianza--top" id="confianza">
+  <section class="franja-confianza franja-confianza--top">
     <div class="contenedor">
       <h3 class="seccion-titulo-centrado">ENVÍOS RÁPIDOS Y SEGUROS A TODO EL PERÚ</h3>
 
@@ -176,12 +160,13 @@
   <!-- ============================================================
        FRANJA DE CONFIANZA: reseñas + envíos + beneficios
        ============================================================ -->
-  <section class="franja-confianza" id="opiniones">
+  <section class="franja-confianza">
     <div class="contenedor">
       <h3 class="seccion-titulo-centrado">+1,000 CLIENTES FELICES EN TODO EL PERÚ</h3>
 
       <div class="mej-resenas">
         <div class="mej-resena">
+          <div class="mej-resena__avatar">M</div>
           <div class="mej-resena__top">
             <span class="mej-resena__estrellas">★★★★★</span>
             <span class="mej-resena__verificado">✔️ Compra verificada</span>
@@ -190,6 +175,7 @@
           <div class="mej-resena__autor">— Mario G. · Arequipa</div>
         </div>
         <div class="mej-resena">
+          <div class="mej-resena__avatar">C</div>
           <div class="mej-resena__top">
             <span class="mej-resena__estrellas">★★★★★</span>
             <span class="mej-resena__verificado">✔️ Compra verificada</span>
@@ -198,6 +184,7 @@
           <div class="mej-resena__autor">— Carla M. · Lima, San Miguel</div>
         </div>
         <div class="mej-resena">
+          <div class="mej-resena__avatar">R</div>
           <div class="mej-resena__top">
             <span class="mej-resena__estrellas">★★★★★</span>
             <span class="mej-resena__verificado">✔️ Compra verificada</span>
@@ -253,7 +240,7 @@
   <!-- ============================================================
        FAQ — PREGUNTAS FRECUENTES  (⚠️ editá según tu operación)
        ============================================================ -->
-  <section class="mej-faq" id="faq">
+  <section class="mej-faq">
     <div class="contenedor">
       <h3 class="mej-titulo">Preguntas frecuentes</h3>
       <div class="mej-faq__lista">
