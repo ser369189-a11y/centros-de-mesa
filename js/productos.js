@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * CATÁLOGO DE PRODUCTOS — Madrid Industrias
+ * CATÁLOGO DE PRODUCTOS — PRACTI HOME
  * ============================================================
  * Este es el ÚNICO archivo que necesitas editar para agregar,
  * quitar o modificar productos (nombre, medidas, colores,
@@ -29,60 +29,6 @@
  */
 
 const PRODUCTOS = [
-  {
-    id: "repisa-cocina",
-    nombre: "Repisa Multiespacio para Cocina",
-    categorias: ["cocina"],
-    medida: "120 × 60 × 30 cm",
-    descripcionCorta: "3 niveles para organizar y decorar tu cocina.",
-    caracteristicas: [
-      "3 niveles de almacenamiento",
-      "Estructura metálica + malla electrosoldada",
-      "Tableros Melamine 18 mm de alta durabilidad",
-      "Semi armado, fácil y rápido de instalar",
-      "Ideal para cocina, sala, oficina y más",
-    ],
-    colores: [
-      { id: "actues", nombre: "Actués (Roble claro)" },
-      { id: "amaderado", nombre: "Amaderado" },
-    ],
-    precio: 249.0,
-    precioTachado: 320.0,
-    imagen: "assets/images/productos/repisa-cocina-multiespacio.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
-    imagenes: ["assets/images/productos/repisa-cocina-multiespacio.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-cocina-ejemplo-1.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-cocina-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-cocina-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-cocina-ejemplo-4.jpg"],
-  },
-  {
-    id: "repisa-bano-3niveles",
-    nombre: "Repisa Multiespacios para Baño",
-    categorias: ["bano"],
-    medida: "60 × 57 × 18 cm",
-    descripcionCorta: "3 niveles, estilo industrial, ideal para baño y más.",
-    caracteristicas: [
-      "Estructura metálica de alta resistencia",
-      "Malla electrosoldada, diseño moderno",
-      "Multiespacios: orden y estilo en 3 niveles",
-      "Fácil instalación",
-      "Ideal para baño, cocina, sala y más",
-    ],
-    colores: [
-      { id: "amaderado-claro", nombre: "Amaderado claro" },
-      { id: "amaderado", nombre: "Amaderado" },
-    ],
-    precio: 179.0,
-    precioTachado: 230.0,
-    imagen: "assets/images/productos/repisa-bano-3niveles.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
-    imagenes: ["assets/images/productos/repisa-bano-3niveles.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-bano-3niveles-ejemplo-1.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-bano-3niveles-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-bano-3niveles-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-bano-3niveles-ejemplo-4.jpg"],
-  },
   {
     id: "repisa-bano-toallero",
     nombre: "Repisa para Baño con Toallero",
@@ -205,41 +151,10 @@ const PRODUCTOS = [
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-3.jpg",
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-4.jpg"],
   },
-  {
-    id: "estante-alto-150",
-    nombre: "Estante Multiespacios Alto",
-    categorias: ["sala", "oficina", "dormitorio"],
-    medida: "50 × 30 × 1.50 m",
-    descripcionCorta: "6 niveles de almacenamiento, diseño industrial moderno.",
-    caracteristicas: [
-      "Melamine Pelikano 18 mm, mayor resistencia y durabilidad",
-      "Semiarmable, fácil de armar",
-      "Estructura sólida con refuerzo en cada nivel",
-      "Estructura metálica + malla electrosoldada",
-      "Ideal para sala, dormitorio, oficina, cocina y lavandería",
-    ],
-    colores: [{ id: "amaderado", nombre: "Amaderado" }],
-    precio: 349.0,
-    precioTachado: 430.0,
-    imagen: "assets/images/productos/estante-alto-150.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
-    imagenes: ["assets/images/productos/estante-alto-150.jpg",
-      "assets/images/productos/ejemplos-carrusel/estante-alto-150-ejemplo-1.jpg",
-      "assets/images/productos/ejemplos-carrusel/estante-alto-150-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/estante-alto-150-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/estante-alto-150-ejemplo-4.jpg"],
-  },
 ];
 
 // Etiquetas visibles para cada categoría (usadas en los filtros del catálogo)
-const CATEGORIAS = [
-  { id: "todos", nombre: "Todos" },
-  { id: "cocina", nombre: "Cocina" },
-  { id: "bano", nombre: "Baño" },
-  { id: "sala", nombre: "Sala" },
-  { id: "dormitorio", nombre: "Dormitorio" },
-  { id: "oficina", nombre: "Oficina" },
-];
+const CATEGORIAS = []; // Filtros por ambiente desactivados
 
 window.PRODUCTOS = PRODUCTOS;
 window.CATEGORIAS = CATEGORIAS;

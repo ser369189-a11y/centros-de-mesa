@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * CONFIGURACIÓN DEL PROYECTO — Madrid Industrias
+ * CONFIGURACIÓN DEL PROYECTO — PRACTI HOME
  * ============================================================
  * Esta landing NO usa base de datos (no hay Supabase).
  * Al confirmar el pedido:
@@ -23,10 +23,10 @@ const CONFIG = {
   // ----------------------------------------------------------
   // Número donde llegarán los pedidos.
   // Formato: código de país + número, SIN "+", espacios ni guiones.
-  WHATSAPP_NUMERO: "51923757221",
+  WHATSAPP_NUMERO: "51908996963",
 
   // Nombre de la tienda (aparece en el mensaje de WhatsApp)
-  TIENDA_NOMBRE: "Madrid Industrias",
+  TIENDA_NOMBRE: "PRACTI HOME",
 
   // ----------------------------------------------------------
   // 2. COSTO DE DELIVERY (solo Lima)

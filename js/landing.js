@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   Pedidos.registrarEvento("page_view");
 
   Pixels.dispararEvento("ViewContent", "ViewContent", {
-    content_id: "catalogo-madrid-industrias",
+    content_id: "catalogo-practi-home",
     content_name: CONFIG.TIENDA_NOMBRE,
     currency: "PEN",
   });

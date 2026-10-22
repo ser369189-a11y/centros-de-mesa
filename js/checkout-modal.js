@@ -68,9 +68,11 @@ const CheckoutModal = (function () {
     // completa, ANTES de mostrar cualquier campo del formulario. Así
     // evitamos que la gente llene datos sin fijarse a qué sección
     // corresponden.
+    // Solo se envía a Lima: no hay paso de elegir destino.
     mostrarPaso1();
-    tipoEnvioActual = "lima"; // valor interno por defecto hasta que el cliente elija
+    tipoEnvioActual = "lima";
     actualizarResumen();
+    prepararMapaEntrega();
 
     Pedidos.registrarEvento("abrir_modal_checkout", { items: Carrito.obtenerItems().length });
   }
@@ -101,8 +103,10 @@ const CheckoutModal = (function () {
   function mostrarPaso1() {
     const paso1 = document.getElementById("modal-checkout-paso1");
     const resto = document.getElementById("modal-checkout-resto");
-    if (paso1) paso1.style.display = "flex";
-    if (resto) resto.style.display = "none";
+    if (paso1) paso1.style.display = "none";
+    if (resto) resto.style.display = "block";
+    const contenedorModal = document.querySelector(".modal-checkout");
+    if (contenedorModal) contenedorModal.scrollTop = 0;
   }
 
   function elegirDestinoInicial(tipo) {

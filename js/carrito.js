@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * CARRITO DE COMPRAS — Madrid Industrias
+ * CARRITO DE COMPRAS — PRACTI HOME
  * ============================================================
  * Carrito simple: el cliente puede agregar varios productos
  * (con su color elegido) al mismo pedido antes de pasar al

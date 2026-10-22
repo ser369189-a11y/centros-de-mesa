@@ -1,4 +1,4 @@
-# Landing Madrid Industrias — Catálogo + carrito (pedidos a WhatsApp)
+# Landing PRACTI HOME — Catálogo + carrito (pedidos a WhatsApp)
 
 Landing 100% estática (sin base de datos). Muestra un **catálogo de varios
 productos** (repisas, estantes, mesas), permite armar un **carrito con más
@@ -31,8 +31,8 @@ este array — el catálogo, el modal de detalle y el carrito se generan solos.
 
 ### `js/config.js` — datos generales de la tienda
 ```js
-WHATSAPP_NUMERO: "51923757221",   // ← número de la TIENDA (con 51 + número, sin +, sin espacios)
-TIENDA_NOMBRE:   "Madrid Industrias",
+WHATSAPP_NUMERO: "51908996963",   // ← número de la TIENDA (con 51 + número, sin +, sin espacios)
+TIENDA_NOMBRE:   "PRACTI HOME",
 COSTO_ENVIO_LIMA: 0.00,
 ABRIR_WHATSAPP_AUTOMATICO: true,
 ```

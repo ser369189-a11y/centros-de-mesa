@@ -2,7 +2,7 @@
    VARIABLES GLOBALES — paleta, tipografía, espaciados
    ============================================================ */
 :root {
-  /* Colores de marca — Madrid Industrias (industrial: negro + madera) */
+  /* Colores de marca — PRACTI HOME (industrial: negro + madera) */
   --color-naranja: #a9743f;        /* acento "madera" — reemplaza al naranja del CTA */
   --color-naranja-hover: #8f5f31;
   --color-naranja-claro: #f4ece2;

@@ -526,3 +526,42 @@ body {
   .logos-fila--pagos img { max-width: 92px; }
   .mini-beneficios-footer .contenedor { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ===== Ajustes PRACTI HOME ===== */
+/* Menú hamburguesa: 3 barras dibujadas con CSS, centradas y sin recortarse */
+.header-referencia__burger,
+.header-referencia__burger::before,
+.header-referencia__burger::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--ref-ink);
+  border-radius: 2px;
+  content: "";
+}
+.header-referencia__burger { position: relative; }
+.header-referencia__burger::before { position: absolute; left: 0; top: -6px; }
+.header-referencia__burger::after  { position: absolute; left: 0; top: 6px; }
+.header-referencia__menu { flex: 0 0 auto; box-sizing: border-box; }
+.header-referencia__actions { flex-shrink: 0; }
+
+@media (max-width: 900px) {
+  .header-referencia__inner { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  .header-referencia__logo { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+}
+@media (max-width: 600px) {
+  .header-referencia__inner { padding: 0 14px; }
+  .header-referencia__actions { gap: 8px; }
+  .header-referencia__menu { width: 40px; height: 40px; }
+}
+
+/* Botón negro del hero: texto largo en varias líneas */
+.hero-marca__cta {
+  width: auto;
+  max-width: 100%;
+  min-height: 50px;
+  padding: 14px 24px;
+  text-align: center;
+  line-height: 1.35;
+  gap: 8px;
+}
