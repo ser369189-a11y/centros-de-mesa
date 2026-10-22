@@ -146,8 +146,7 @@ const PRODUCTOS = [
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-2.jpg",
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-4.jpg",
-      "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-5.jpg"],
+      "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-4.jpg"],
   },
 ];
 
