@@ -46,12 +46,11 @@ const PRODUCTOS = [
     precio: 159.0,
     precioTachado: 199.0,
     imagen: "assets/images/productos/repisa-bano-toallero.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
+    // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/repisa-bano-toallero.jpg",
       "assets/images/productos/ejemplos-carrusel/repisa-bano-toallero-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/repisa-bano-toallero-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-bano-toallero-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/repisa-bano-toallero-ejemplo-4.jpg"],
+      "assets/images/productos/ejemplos-carrusel/repisa-bano-toallero-ejemplo-3.jpg"],
   },
   {
     id: "estante-multiespacios-76",
@@ -72,12 +71,11 @@ const PRODUCTOS = [
     precio: 209.0,
     precioTachado: 260.0,
     imagen: "assets/images/productos/estante-multiespacios-76.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
+    // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/estante-multiespacios-76.jpg",
       "assets/images/productos/ejemplos-carrusel/estante-multiespacios-76-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/estante-multiespacios-76-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/estante-multiespacios-76-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/estante-multiespacios-76-ejemplo-4.jpg"],
+      "assets/images/productos/ejemplos-carrusel/estante-multiespacios-76-ejemplo-3.jpg"],
   },
   {
     id: "mesa-noche",
@@ -96,12 +94,11 @@ const PRODUCTOS = [
     precio: 189.0,
     precioTachado: 240.0,
     imagen: "assets/images/productos/mesa-noche.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
+    // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/mesa-noche.jpg",
       "assets/images/productos/ejemplos-carrusel/mesa-noche-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/mesa-noche-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/mesa-noche-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/mesa-noche-ejemplo-4.jpg"],
+      "assets/images/productos/ejemplos-carrusel/mesa-noche-ejemplo-3.jpg"],
   },
   {
     id: "mesa-recibidora-sala",
@@ -120,7 +117,7 @@ const PRODUCTOS = [
     precio: 299.0,
     precioTachado: 380.0,
     imagen: "assets/images/productos/mesa-recibidora-sala.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
+    // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/mesa-recibidora-sala.jpg",
       "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-2.jpg",
@@ -144,12 +141,13 @@ const PRODUCTOS = [
     precio: 259.0,
     precioTachado: 330.0,
     imagen: "assets/images/productos/mueble-auxiliar.jpg",
-    // Imágenes de ejemplo del carrusel: reemplázalas por tus fotos reales cuando quieras.
+    // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/mueble-auxiliar.jpg",
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-2.jpg",
       "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-4.jpg"],
+      "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-4.jpg",
+      "assets/images/productos/ejemplos-carrusel/mueble-auxiliar-ejemplo-5.jpg"],
   },
 ];
 
