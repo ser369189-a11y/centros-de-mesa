@@ -275,9 +275,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Colores
     const contColores = $("#producto-modal-colores");
     const bloqueColores = $("#producto-modal-colores-bloque");
-    if (producto.colores && producto.colores.length > 1) {
+    if (producto.colores && producto.colores.length >= 1) {
       bloqueColores.style.display = "";
       contColores.innerHTML = "";
+      // Con un solo color el título dice "Color"; con varios, "Elige un color"
+      const tituloColores = bloqueColores.querySelector(".producto-modal__bloque-titulo");
+      if (tituloColores) tituloColores.textContent = producto.colores.length > 1 ? "Elige un color" : "Color";
       producto.colores.forEach(function (color) {
         const btn = document.createElement("button");
         btn.type = "button";
