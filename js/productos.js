@@ -120,8 +120,7 @@ const PRODUCTOS = [
     imagenes: ["assets/images/productos/mesa-recibidora-sala.jpg",
       "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-1.jpg",
       "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-2.jpg",
-      "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-3.jpg",
-      "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-4.jpg"],
+      "assets/images/productos/ejemplos-carrusel/mesa-recibidora-sala-ejemplo-3.jpg"],
   },
   {
     id: "mueble-auxiliar",
