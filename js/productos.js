@@ -8,9 +8,9 @@
  * el carrito se generan automáticamente desde este array: no
  * hace falta tocar el HTML para editar un producto existente.
  *
- * ⚠️ PRECIOS: son de REFERENCIA. Ajusta "precio" y
- * "precioTachado" de cada producto a tus precios reales antes
- * de publicar la landing.
+ * PRECIOS: "precio" es el precio final en soles. "precioTachado"
+ * es opcional (precio anterior tachado + badge de descuento);
+ * si no lo pones, no se muestra descuento.
  *
  * Estructura de cada producto:
  *   id              -> identificador único (no lo repitas, no uses espacios)
@@ -43,8 +43,7 @@ const PRODUCTOS = [
       "Ideal para baños",
     ],
     colores: [{ id: "blanco", nombre: "Blanco" }],
-    precio: 159.0,
-    precioTachado: 199.0,
+    precio: 90.0,
     imagen: "assets/images/productos/repisa-bano-toallero.jpg",
     // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/repisa-bano-toallero.jpg",
@@ -65,11 +64,10 @@ const PRODUCTOS = [
       "Estructura metálica resistente",
     ],
     colores: [
-      { id: "claro", nombre: "Color claro" },
-      { id: "madera", nombre: "Color madera" },
+      { id: "blanco", nombre: "Blanco" },
+      { id: "panela", nombre: "Panela" },
     ],
-    precio: 209.0,
-    precioTachado: 260.0,
+    precio: 135.0,
     imagen: "assets/images/productos/estante-multiespacios-76.jpg",
     // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/estante-multiespacios-76.jpg",
@@ -90,9 +88,8 @@ const PRODUCTOS = [
       "Estructura metálica + malla electrosoldada",
       "Patas niveladoras antideslizantes",
     ],
-    colores: [{ id: "amaderado", nombre: "Amaderado" }],
-    precio: 189.0,
-    precioTachado: 240.0,
+    colores: [{ id: "panela", nombre: "Panela" }],
+    precio: 160.0,
     imagen: "assets/images/productos/mesa-noche.jpg",
     // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/mesa-noche.jpg",
@@ -113,9 +110,11 @@ const PRODUCTOS = [
       "Estructura metálica + malla electrosoldada",
       "Ideal para sala, dormitorio, oficina y estudio",
     ],
-    colores: [{ id: "amaderado", nombre: "Amaderado" }],
-    precio: 299.0,
-    precioTachado: 380.0,
+    colores: [
+      { id: "blanco", nombre: "Blanco" },
+      { id: "panela", nombre: "Panela" },
+    ],
+    precio: 190.0,
     imagen: "assets/images/productos/mesa-recibidora-sala.jpg",
     // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/mesa-recibidora-sala.jpg",
@@ -137,9 +136,11 @@ const PRODUCTOS = [
       "Estructura metálica + malla electrosoldada",
       "Ideal para hogar y oficina",
     ],
-    colores: [{ id: "amaderado", nombre: "Amaderado" }],
-    precio: 259.0,
-    precioTachado: 330.0,
+    colores: [
+      { id: "blanco", nombre: "Blanco" },
+      { id: "panela", nombre: "Panela" },
+    ],
+    precio: 175.0,
     imagen: "assets/images/productos/mueble-auxiliar.jpg",
     // Carrusel: ficha del producto + fotos reales y detalles.
     imagenes: ["assets/images/productos/mueble-auxiliar.jpg",

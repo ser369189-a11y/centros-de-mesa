@@ -179,11 +179,17 @@ const CheckoutModal = (function () {
       });
     }
 
+    const subtotalEl = $("#resumen-subtotal-valor");
+    if (subtotalEl) subtotalEl.textContent = formatearMoneda(subtotalProductos);
+
     const lineaEnvio = $("#resumen-linea-envio-texto");
+    const labelEnvio = $("#resumen-envio-label");
     if (lineaEnvio) {
       if (tipoEnvioActual === "lima") {
-        lineaEnvio.textContent = "Pago contraentrega";
+        if (labelEnvio) labelEnvio.textContent = "Costo de envío (Lima Metropolitana)";
+        lineaEnvio.textContent = formatearMoneda(costoEnvio);
       } else {
+        if (labelEnvio) labelEnvio.textContent = "Envío";
         lineaEnvio.textContent = "Pago contraentrega (adelanto S/ 20 + diferencia al recoger)";
       }
     }
@@ -290,6 +296,7 @@ const CheckoutModal = (function () {
       if (ubicacionMaps) {
         lineas.push("Ubicación GPS: " + ubicacionMaps);
       }
+      lineas.push("Costo de envío (Lima Metropolitana): " + formatearMoneda(resumen.costoEnvio));
       lineas.push("Delivery: Pago contraentrega");
     } else {
       lineas.push("");
@@ -353,6 +360,7 @@ const CheckoutModal = (function () {
 
     datos.productos = resumen.items;
     datos.subtotalProductos = resumen.subtotalProductos;
+    datos.costoEnvio = resumen.costoEnvio;
     datos.totalPagar = resumen.total;
     datos.ubicacionMaps = (tipoEnvioActual === "lima") ? ubicacionMaps : null;
 

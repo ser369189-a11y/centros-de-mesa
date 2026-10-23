@@ -29,13 +29,13 @@ const CONFIG = {
   TIENDA_NOMBRE: "PRACTI HOME",
 
   // ----------------------------------------------------------
-  // 2. COSTO DE DELIVERY (solo Lima)
+  // 2. COSTO DE ENVÍO (Lima Metropolitana)
   // ----------------------------------------------------------
-  // No se suma ningún costo extra en Lima (se paga contraentrega,
-  // junto con el producto). A Provincia tampoco se suma nada aquí:
-  // el flete va vía Shalom con un pequeño adelanto por WhatsApp y
-  // la diferencia se paga al recoger.
-  COSTO_ENVIO_LIMA: 0.00,
+  // Se suma al total en el resumen de "Finalizar compra" (solo Lima
+  // Metropolitana) y aparece desglosado como "Costo de envío".
+  // A Provincia no se suma nada aquí: el flete va vía Shalom con
+  // un pequeño adelanto por WhatsApp y la diferencia se paga al recoger.
+  COSTO_ENVIO_LIMA: 10.00,
 
   // ----------------------------------------------------------
   // 3. OPCIONES DEL CHECKOUT
