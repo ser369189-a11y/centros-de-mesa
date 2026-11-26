@@ -34,23 +34,20 @@ const CONFIG = {
   // ----------------------------------------------------------
   // Se vende de a una sola unidad, a precio único (sin descuento
   // por cantidad y sin variantes de color).
-  // ⚠️ PRECIOS DE EJEMPLO: cámbialos por los reales. Si los cambias, actualiza
-  // también los "S/ 149.00" y "S/ 199.00" que aparecen en index.html
+  // Precios actuales. Si los cambias, actualiza
+  // también los "S/ 190.00" y "S/ 250.00" que aparecen en index.html
   // (el % de descuento de la barra fija se calcula solo).
   PRODUCTO_NOMBRE: "Mesa Recibidora Sala",
-  PRECIO_REGULAR: 185.00,
-  PRECIO_TACHADO: 235.00,
+  PRECIO_REGULAR: 190.00,
+  PRECIO_TACHADO: 250.00,
 
   // ----------------------------------------------------------
-  // 3. COSTO DE DELIVERY (solo Lima)
+  // 3. COSTO DE DELIVERY
   // ----------------------------------------------------------
-  // Envío GRATIS tanto a Lima como a Provincia.
-  // Los pedidos a LIMA no suman ningún costo de delivery (se paga
-  // contraentrega, junto con el producto, sin cargo extra).
-  // Los pedidos a PROVINCIA tampoco suman nada aquí: el flete de
-  // Shalom está incluido; solo se coordina un pequeño adelanto de
-  // S/ 20 por WhatsApp y la diferencia se paga al recoger.
-  COSTO_ENVIO_LIMA: 0.00,
+  // LIMA: delivery de S/ 10, se suma al total y se paga contraentrega.
+  // PROVINCIA: no se suma nada al desglose; el cliente paga su propio
+  // envío con Shalom y el producto va contraentrega.
+  COSTO_ENVIO_LIMA: 10.00,
 
   // ----------------------------------------------------------
   // 4. OPCIONES DEL CHECKOUT

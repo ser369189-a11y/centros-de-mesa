@@ -24,12 +24,13 @@ los datos que el cliente llenó, listos para enviar.
 WHATSAPP_NUMERO: "51927404188",   // número de la TIENDA (sin +, sin espacios)
 TIENDA_NOMBRE:   "Mr. Barril Store",
 PRODUCTO_NOMBRE: "Mesa Recibidora Sala",
-PRECIO_REGULAR:  149.00,          // ⚠️ precio de ejemplo: cámbialo
-PRECIO_TACHADO:  199.00,          // ⚠️ precio de ejemplo: cámbialo
+PRECIO_REGULAR:  190.00,
+PRECIO_TACHADO:  250.00,
+COSTO_ENVIO_LIMA: 10.00,          // solo Lima; provincia no suma envío
 TIKTOK_PIXEL_ID: "",              // pega aquí el pixel de TikTok de este producto
 ```
 
-Si cambias los precios, actualiza también los textos `S/ 149.00` y `S/ 199.00` (y `-25%`) en `index.html`.
+Si cambias los precios, actualiza también los textos `S/ 190.00` y `S/ 250.00` (y `-24%`) en `index.html`.
 
 ## 3. Cómo funciona el flujo ahora
 
@@ -88,7 +89,7 @@ Sirve para pruebas. **Tu registro real de ventas es el WhatsApp.**
 - `medidas.jpg` → sección "Medidas del producto"
 - `vista-360.jpg` → bloque bajo "+1,000 clientes felices" (reemplaza al video)
 - `ambiente-recibidor.jpg`, `ambiente-sala.jpg` → sección "Un mueble, varios espacios"
-- `envio-1.jpg … envio-6.jpg` → carrusel de envíos
+- `envio-1.jpg … envio-4.jpg` → carrusel de envíos
 - `producto-hero.jpg` (resumen del checkout y vista previa al compartir) y `miniatura-barra.jpg` (barra fija)
 - Para volver a usar video, ver el comentario en `index.html` (sección clientes felices).
 

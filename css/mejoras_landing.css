@@ -761,3 +761,28 @@
   box-shadow: var(--sombra-md, 0 4px 16px rgba(0,0,0,0.15));
 }
 .vista-360 img { display: block; width: 100%; height: auto; }
+
+/* Recuadro del color (texto enmarcado) */
+.recuadro-color {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 14px 0;
+  padding: 11px 16px;
+  border: 2px solid #b9803a;
+  border-radius: 12px;
+  background: #fbf1e2;
+}
+.recuadro-color__label { font-size: 14px; font-weight: 600; color: #5a3b17; }
+.recuadro-color__valor {
+  font-size: 15px; font-weight: 800; letter-spacing: .04em;
+  color: #fff; background: #b9803a;
+  padding: 5px 14px; border-radius: 999px;
+}
+
+/* Aviso de redirección a WhatsApp (checkout) */
+.aviso-whatsapp-confirmar {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin: 12px 0 4px; padding: 11px 14px;
+  background: #e9f9ef; border: 1px solid #25d366; border-radius: 12px;
+  font-size: 13px; line-height: 1.4; color: #14532d;
+}
+.aviso-whatsapp-confirmar p { margin: 0; }

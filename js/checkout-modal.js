@@ -153,8 +153,8 @@ const CheckoutModal = (function () {
   function actualizarResumen() {
     // Sin instalación ni color: el total es el precio único del
     // producto (cantidad siempre 1) más el costo de delivery cuando
-    // el envío es a Lima (a provincia no se le suma nada acá: ese
-    // flete se paga directo en la agencia al recoger el pedido).
+    // el envío es a Lima (a provincia no se le suma nada: el cliente
+    // paga su propio envío con Shalom).
     const precioUnitario = obtenerPrecioUnitarioPorCantidad(cantidadActual);
     const subtotalProducto = precioUnitario * cantidadActual;
     const costoEnvio = tipoEnvioActual === "lima" ? (CONFIG.COSTO_ENVIO_LIMA || 0) : 0;
@@ -175,11 +175,17 @@ const CheckoutModal = (function () {
     $("#resumen-linea-producto-cantidad").textContent = CONFIG.PRODUCTO_NOMBRE + " (1 unidad)";
     $("#resumen-linea-producto-precio").textContent = formatearMoneda(subtotalProducto);
 
-    const lineaEnvio = $("#resumen-linea-envio-texto");
-    if (tipoEnvioActual === "lima") {
-      lineaEnvio.textContent = "Gratis (contraentrega)";
-    } else {
-      lineaEnvio.textContent = "Gratis (adelanto S/ 20 + diferencia al recoger)";
+    // Lima: se muestra el delivery. Provincia: no se muestra línea de envío
+    // (el cliente paga su propio envío con Shalom); solo producto y total.
+    const filaEnvio = $("#resumen-linea-envio");
+    if (filaEnvio) {
+      if (tipoEnvioActual === "lima") {
+        filaEnvio.style.display = "";
+        $("#resumen-linea-envio-label").textContent = "Delivery (Lima)";
+        $("#resumen-linea-envio-texto").textContent = formatearMoneda(costoEnvio);
+      } else {
+        filaEnvio.style.display = "none";
+      }
     }
 
     $("#resumen-total-valor").textContent = formatearMoneda(total);
@@ -276,7 +282,7 @@ const CheckoutModal = (function () {
       if (ubicacionMaps) {
         lineas.push("Ubicación GPS: " + ubicacionMaps);
       }
-      lineas.push("Delivery: Gratis");
+      lineas.push("Delivery: " + formatearMoneda(resumen.costoEnvio));
     } else {
       lineas.push("");
       lineas.push("🚚 *Envío a Provincia (Shalom)*");
@@ -286,7 +292,7 @@ const CheckoutModal = (function () {
       lineas.push("Departamento: " + datos.departamento);
       lineas.push("Ciudad/Destino: " + datos.ciudadDestino);
       lineas.push("Sede Shalom más cercana: " + datos.sedeShalom);
-      lineas.push("Flete: Gratis (adelanto de S/ 20 por WhatsApp + diferencia al recoger en Shalom)");
+      lineas.push("Envío: lo paga el cliente directamente a Shalom");
     }
 
     lineas.push("");
