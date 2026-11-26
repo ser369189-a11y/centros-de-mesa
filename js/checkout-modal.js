@@ -29,6 +29,7 @@ const CheckoutModal = (function () {
   });
 
   let tipoEnvioActual = "lima";
+  let cantidadActual = 1;
   let enviando = false;
   let ultimoLinkWhatsapp = null;
 
@@ -46,17 +47,18 @@ const CheckoutModal = (function () {
     return "S/ " + numero.toFixed(2);
   }
 
+  // Sin color ni descuento por cantidad: la mesa se
+  // vende de a una unidad, a precio único (CONFIG.PRECIO_REGULAR).
+  function obtenerPrecioUnitarioPorCantidad(_cantidadIgnorada) {
+    return CONFIG.PRECIO_REGULAR;
+  }
+
   // ----------------------------------------------------------
   // Abrir / cerrar modal
   // ----------------------------------------------------------
   function abrir() {
-    // El checkout siempre trabaja sobre el carrito (Carrito.obtenerItems()).
-    // Si está vacío, no tiene sentido abrirlo: avisamos y no hacemos nada.
-    if (!window.Carrito || Carrito.estaVacio()) {
-      alert("Tu carrito está vacío. Agrega al menos un producto antes de continuar.");
-      return;
-    }
-
+    // Se vende de a una sola unidad: cantidadActual siempre es 1.
+    cantidadActual = 1;
     const overlay = document.getElementById("modal-checkout-overlay");
     if (!overlay) return;
 
@@ -68,13 +70,11 @@ const CheckoutModal = (function () {
     // completa, ANTES de mostrar cualquier campo del formulario. Así
     // evitamos que la gente llene datos sin fijarse a qué sección
     // corresponden.
-    // Solo se envía a Lima: no hay paso de elegir destino.
     mostrarPaso1();
-    tipoEnvioActual = "lima";
+    tipoEnvioActual = "lima"; // valor interno por defecto hasta que el cliente elija
     actualizarResumen();
-    prepararMapaEntrega();
 
-    Pedidos.registrarEvento("abrir_modal_checkout", { items: Carrito.obtenerItems().length });
+    Pedidos.registrarEvento("abrir_modal_checkout", { cantidad: cantidadActual });
   }
 
   function cerrar() {
@@ -103,10 +103,8 @@ const CheckoutModal = (function () {
   function mostrarPaso1() {
     const paso1 = document.getElementById("modal-checkout-paso1");
     const resto = document.getElementById("modal-checkout-resto");
-    if (paso1) paso1.style.display = "none";
-    if (resto) resto.style.display = "block";
-    const contenedorModal = document.querySelector(".modal-checkout");
-    if (contenedorModal) contenedorModal.scrollTop = 0;
+    if (paso1) paso1.style.display = "flex";
+    if (resto) resto.style.display = "none";
   }
 
   function elegirDestinoInicial(tipo) {
@@ -152,52 +150,41 @@ const CheckoutModal = (function () {
   // ----------------------------------------------------------
   // Resumen del pedido (columna derecha del modal)
   // ----------------------------------------------------------
-  // Ahora el resumen lista TODOS los productos del carrito (cada
-  // uno con su color y cantidad), no un solo producto fijo.
-  // ----------------------------------------------------------
   function actualizarResumen() {
-    const items = window.Carrito ? Carrito.obtenerItems() : [];
-    const subtotalProductos = window.Carrito ? Carrito.calcularSubtotal() : 0;
+    // Sin instalación ni color: el total es el precio único del
+    // producto (cantidad siempre 1) más el costo de delivery cuando
+    // el envío es a Lima (a provincia no se le suma nada acá: ese
+    // flete se paga directo en la agencia al recoger el pedido).
+    const precioUnitario = obtenerPrecioUnitarioPorCantidad(cantidadActual);
+    const subtotalProducto = precioUnitario * cantidadActual;
     const costoEnvio = tipoEnvioActual === "lima" ? (CONFIG.COSTO_ENVIO_LIMA || 0) : 0;
-    const total = subtotalProductos + costoEnvio;
+    const total = subtotalProducto + costoEnvio;
 
-    // Lista de productos del carrito
-    const contLista = $("#resumen-lista-productos");
-    if (contLista) {
-      contLista.innerHTML = "";
-      items.forEach(function (item) {
-        const fila = document.createElement("div");
-        fila.className = "resumen-pedido__linea";
-        const detalleColor = item.colorNombre ? " · " + item.colorNombre : "";
-        const spanNombre = document.createElement("span");
-        spanNombre.textContent = item.nombre + detalleColor + " (x" + item.cantidad + ")";
-        const spanPrecio = document.createElement("span");
-        spanPrecio.textContent = formatearMoneda(item.precio * item.cantidad);
-        fila.appendChild(spanNombre);
-        fila.appendChild(spanPrecio);
-        contLista.appendChild(fila);
-      });
+    // Actualizar nombre del producto en la cabecera del resumen
+    const nombreResumen = $("#resumen-producto-nombre");
+    if (nombreResumen) {
+      nombreResumen.textContent = CONFIG.PRODUCTO_NOMBRE;
     }
 
-    const subtotalEl = $("#resumen-subtotal-valor");
-    if (subtotalEl) subtotalEl.textContent = formatearMoneda(subtotalProductos);
+    // Actualizar precio unitario grande (el que aparece destacado arriba del resumen)
+    const precioResumen = $("#resumen-producto-precio-unitario");
+    if (precioResumen) {
+      precioResumen.textContent = formatearMoneda(precioUnitario);
+    }
+
+    $("#resumen-linea-producto-cantidad").textContent = CONFIG.PRODUCTO_NOMBRE + " (1 unidad)";
+    $("#resumen-linea-producto-precio").textContent = formatearMoneda(subtotalProducto);
 
     const lineaEnvio = $("#resumen-linea-envio-texto");
-    const labelEnvio = $("#resumen-envio-label");
-    if (lineaEnvio) {
-      if (tipoEnvioActual === "lima") {
-        if (labelEnvio) labelEnvio.textContent = "Costo de envío (Lima Metropolitana)";
-        lineaEnvio.textContent = formatearMoneda(costoEnvio);
-      } else {
-        if (labelEnvio) labelEnvio.textContent = "Envío";
-        lineaEnvio.textContent = "Pago contraentrega (adelanto S/ 20 + diferencia al recoger)";
-      }
+    if (tipoEnvioActual === "lima") {
+      lineaEnvio.textContent = "Gratis (contraentrega)";
+    } else {
+      lineaEnvio.textContent = "Gratis (adelanto S/ 20 + diferencia al recoger)";
     }
 
-    const totalEl = $("#resumen-total-valor");
-    if (totalEl) totalEl.textContent = formatearMoneda(total);
+    $("#resumen-total-valor").textContent = formatearMoneda(total);
 
-    return { items, subtotalProductos, costoEnvio, total };
+    return { precioUnitario, subtotalProducto, costoEnvio, total };
   }
 
   // ----------------------------------------------------------
@@ -276,15 +263,8 @@ const CheckoutModal = (function () {
     lineas.push("🛒 *NUEVO PEDIDO* — " + (CONFIG.TIENDA_NOMBRE || ""));
     lineas.push("Código: *" + codigo + "*");
     lineas.push("");
-    lineas.push("📦 *Productos:*");
-    resumen.items.forEach(function (item) {
-      const detalleColor = item.colorNombre ? " (" + item.colorNombre + ")" : "";
-      lineas.push(
-        "• " + item.nombre + detalleColor + " x" + item.cantidad +
-        " — " + formatearMoneda(item.precio * item.cantidad)
-      );
-    });
-    lineas.push("Subtotal productos: " + formatearMoneda(resumen.subtotalProductos));
+    lineas.push("📦 *" + CONFIG.PRODUCTO_NOMBRE + "*");
+    lineas.push("Precio: " + formatearMoneda(resumen.precioUnitario));
 
     if (tipoEnvioActual === "lima") {
       lineas.push("");
@@ -296,8 +276,7 @@ const CheckoutModal = (function () {
       if (ubicacionMaps) {
         lineas.push("Ubicación GPS: " + ubicacionMaps);
       }
-      lineas.push("Costo de envío (Lima Metropolitana): " + formatearMoneda(resumen.costoEnvio));
-      lineas.push("Delivery: Pago contraentrega");
+      lineas.push("Delivery: Gratis");
     } else {
       lineas.push("");
       lineas.push("🚚 *Envío a Provincia (Shalom)*");
@@ -307,7 +286,7 @@ const CheckoutModal = (function () {
       lineas.push("Departamento: " + datos.departamento);
       lineas.push("Ciudad/Destino: " + datos.ciudadDestino);
       lineas.push("Sede Shalom más cercana: " + datos.sedeShalom);
-      lineas.push("Flete: Pago contraentrega (adelanto de S/ 20 por WhatsApp + diferencia al recoger en Shalom)");
+      lineas.push("Flete: Gratis (adelanto de S/ 20 por WhatsApp + diferencia al recoger en Shalom)");
     }
 
     lineas.push("");
@@ -358,9 +337,7 @@ const CheckoutModal = (function () {
       };
     }
 
-    datos.productos = resumen.items;
-    datos.subtotalProductos = resumen.subtotalProductos;
-    datos.costoEnvio = resumen.costoEnvio;
+    datos.precioUnitario = resumen.precioUnitario;
     datos.totalPagar = resumen.total;
     datos.ubicacionMaps = (tipoEnvioActual === "lima") ? ubicacionMaps : null;
 
@@ -381,7 +358,7 @@ const CheckoutModal = (function () {
     Pixels.identificarUsuario({ telefono: datos.whatsapp });
     Pixels.dispararEvento("Purchase", "CompletePayment", {
       content_id: registro.codigo,
-      content_name: resumen.items.map(function (i) { return i.nombre; }).join(", "),
+      content_name: CONFIG.PRODUCTO_NOMBRE,
       value: resumen.total,
       currency: "PEN",
     });
@@ -392,10 +369,7 @@ const CheckoutModal = (function () {
       Pedidos.enviarPedidoAWhatsapp(mensajeTienda);
     }
 
-    // 5) Vaciamos el carrito: el pedido ya quedó armado y enviado a WhatsApp
-    if (window.Carrito) Carrito.vaciar();
-
-    // 6) Pantalla de éxito
+    // 5) Pantalla de éxito
     mostrarExito();
 
     enviando = false;
@@ -441,7 +415,7 @@ const CheckoutModal = (function () {
       });
     });
 
-    // (El Elevador de Drywall no se instala, así que aquí ya no hay
+    // (La mesa no requiere instalación, así que aquí ya no hay
     // checkbox de instalación que sincronizar.)
 
     // Botón confirmar

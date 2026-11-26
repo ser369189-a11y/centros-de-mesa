@@ -1,18 +1,19 @@
 /**
  * ============================================================
- * CONFIGURACIÓN DEL PROYECTO — PRACTI HOME
+ * CONFIGURACIÓN DEL PROYECTO — Mesa Recibidora Sala
  * ============================================================
  * Esta landing NO usa base de datos (no hay Supabase).
  * Al confirmar el pedido:
  *   1. El pedido se guarda localmente en el navegador (respaldo).
  *   2. Se abre WhatsApp de la TIENDA con TODOS los datos del
- *      cliente y de los productos del carrito ya escritos en
- *      el mensaje. El cliente decide si lo envía o no — ninguna
- *      web puede enviarlo sola.
+ *      cliente ya escritos en el mensaje. El cliente decide si
+ *      lo envía o no — ninguna web puede enviarlo sola.
  *
- * Los PRODUCTOS (nombre, medidas, colores, precios, imágenes)
- * ya NO viven aquí: están en js/productos.js. Este archivo solo
- * tiene los datos generales de la tienda.
+ * Este es el ÚNICO archivo que necesitas editar para los datos
+ * del producto y del WhatsApp. Si cambias el nombre o el precio
+ * aquí, recuerda también actualizar el <title> y las etiquetas
+ * og:* en index.html (esas las lee WhatsApp/Facebook y no pueden
+ * generarse con JavaScript).
  * ============================================================
  */
 
@@ -23,22 +24,36 @@ const CONFIG = {
   // ----------------------------------------------------------
   // Número donde llegarán los pedidos.
   // Formato: código de país + número, SIN "+", espacios ni guiones.
-  WHATSAPP_NUMERO: "51908996963",
+  WHATSAPP_NUMERO: "51927404188",
 
   // Nombre de la tienda (aparece en el mensaje de WhatsApp)
-  TIENDA_NOMBRE: "PRACTI HOME",
+  TIENDA_NOMBRE: "Mr. Barril Store",
 
   // ----------------------------------------------------------
-  // 2. COSTO DE ENVÍO (Lima Metropolitana)
+  // 2. PRODUCTO Y PRECIO
   // ----------------------------------------------------------
-  // Se suma al total en el resumen de "Finalizar compra" (solo Lima
-  // Metropolitana) y aparece desglosado como "Costo de envío".
-  // A Provincia no se suma nada aquí: el flete va vía Shalom con
-  // un pequeño adelanto por WhatsApp y la diferencia se paga al recoger.
-  COSTO_ENVIO_LIMA: 10.00,
+  // Se vende de a una sola unidad, a precio único (sin descuento
+  // por cantidad y sin variantes de color).
+  // ⚠️ PRECIOS DE EJEMPLO: cámbialos por los reales. Si los cambias, actualiza
+  // también los "S/ 149.00" y "S/ 199.00" que aparecen en index.html
+  // (el % de descuento de la barra fija se calcula solo).
+  PRODUCTO_NOMBRE: "Mesa Recibidora Sala",
+  PRECIO_REGULAR: 185.00,
+  PRECIO_TACHADO: 235.00,
 
   // ----------------------------------------------------------
-  // 3. OPCIONES DEL CHECKOUT
+  // 3. COSTO DE DELIVERY (solo Lima)
+  // ----------------------------------------------------------
+  // Envío GRATIS tanto a Lima como a Provincia.
+  // Los pedidos a LIMA no suman ningún costo de delivery (se paga
+  // contraentrega, junto con el producto, sin cargo extra).
+  // Los pedidos a PROVINCIA tampoco suman nada aquí: el flete de
+  // Shalom está incluido; solo se coordina un pequeño adelanto de
+  // S/ 20 por WhatsApp y la diferencia se paga al recoger.
+  COSTO_ENVIO_LIMA: 0.00,
+
+  // ----------------------------------------------------------
+  // 4. OPCIONES DEL CHECKOUT
   // ----------------------------------------------------------
   // Abrir WhatsApp automáticamente al confirmar el pedido.
   // El cliente siempre tiene que tocar "enviar" en WhatsApp: eso
@@ -48,12 +63,11 @@ const CONFIG = {
   ABRIR_WHATSAPP_AUTOMATICO: true,
 
   // ----------------------------------------------------------
-  // 4. ANALYTICS / TRACKING (opcional)
+  // 5. ANALYTICS / TRACKING (opcional)
   // ----------------------------------------------------------
-  // Déjalos vacíos ("") si todavía no los usas. Los de la landing
-  // anterior (Elevador de Drywall) NO se copiaron aquí a propósito:
-  // son tiendas distintas y mezclar los pixeles ensuciaría tus datos.
+  // Déjalos vacíos ("") si todavía no los usas.
   META_PIXEL_ID: "",
+  // Pega aquí el ID del pixel de TikTok de ESTE producto (ej: "C1234ABCD5678EFG").
   TIKTOK_PIXEL_ID: "",
 
 };

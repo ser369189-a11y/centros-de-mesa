@@ -11,7 +11,7 @@
 
 services:
   - type: web
-    name: madrid-industrias-landing
+    name: landing-producto2
     runtime: static
     buildCommand: "echo 'Sitio estático, no requiere build'"
     staticPublishPath: ./

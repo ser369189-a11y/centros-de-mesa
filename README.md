@@ -1,91 +1,100 @@
-# Landing PRACTI HOME — Catálogo + carrito (pedidos a WhatsApp)
+# Landing de venta — Producto 2 (pedidos directos a WhatsApp)
 
-Landing 100% estática (sin base de datos). Muestra un **catálogo de varios
-productos** (repisas, estantes, mesas), permite armar un **carrito con más
-de un producto** y, al confirmar, abre **WhatsApp de la tienda** con todo
-el pedido ya escrito, listo para enviar.
+Copia de la landing original, pero **sin base de datos**.
+Aquí el pedido **no viaja a Supabase ni a la app de ventas**: al confirmar la compra
+se guarda un respaldo en el navegador y se abre **WhatsApp de la tienda** con todos
+los datos que el cliente llenó, listos para enviar.
 
 ---
 
-## 1. Qué cambió respecto a la landing de "1 solo producto"
+## 1. Qué cambió respecto a la landing original
 
-| | Landing de 1 producto | Esta landing |
+| | Landing original | Esta landing |
 |---|---|---|
-| Productos | Uno solo, precio fijo en `config.js` | Catálogo de varios, cada uno en `js/productos.js` |
-| Selección | Un botón "Comprar" | Grid con filtros por ambiente + modal de detalle/color |
-| Pedido | Siempre 1 unidad de 1 producto | Carrito: varios productos, colores y cantidades en el mismo pedido |
-| Checkout | Resumen de un solo producto | Resumen con la lista completa del carrito |
+| Base de datos | Supabase (`pedidos`, `eventos_analytics`) | Ninguna |
+| Al confirmar | Guardaba en Supabase, tú escribías desde la app admin | Abre WhatsApp de la tienda con el pedido completo |
+| Archivos | `js/supabase-client.js`, `supabase/schema.sql`, CDN de Supabase | `js/pedidos.js` |
+| Claves/API keys | Sí | No hace falta ninguna |
 
 ---
 
-## 2. Lo que tienes que editar para tus datos reales
+## 2. Lo único que tienes que editar: `js/config.js`
 
-### `js/productos.js` — el catálogo
-Cada producto es un objeto con: `id`, `nombre`, `categorias`, `medida`,
-`descripcionCorta`, `caracteristicas`, `colores`, `precio`, `precioTachado`
-e `imagen`. Para agregar o quitar un producto, agrega o quita un objeto de
-este array — el catálogo, el modal de detalle y el carrito se generan solos.
-
-⚠️ **Los precios actuales son de referencia.** Ajusta `precio` y
-`precioTachado` de cada producto a tus precios reales antes de publicar.
-
-### `js/config.js` — datos generales de la tienda
 ```js
-WHATSAPP_NUMERO: "51908996963",   // ← número de la TIENDA (con 51 + número, sin +, sin espacios)
-TIENDA_NOMBRE:   "PRACTI HOME",
-COSTO_ENVIO_LIMA: 0.00,
-ABRIR_WHATSAPP_AUTOMATICO: true,
+WHATSAPP_NUMERO: "51927404188",   // número de la TIENDA (sin +, sin espacios)
+TIENDA_NOMBRE:   "Mr. Barril Store",
+PRODUCTO_NOMBRE: "Mesa Recibidora Sala",
+PRECIO_REGULAR:  149.00,          // ⚠️ precio de ejemplo: cámbialo
+PRECIO_TACHADO:  199.00,          // ⚠️ precio de ejemplo: cámbialo
+TIKTOK_PIXEL_ID: "",              // pega aquí el pixel de TikTok de este producto
 ```
 
-### `assets/images/productos/`
-Ahí están las 8 fotos de producto (una por mueble, tal como las
-compartiste). Si consigues fotos limpias adicionales (sin texto
-superpuesto) puedes reemplazarlas manteniendo el mismo nombre de archivo,
-o agregar más imágenes y referenciarlas en `js/productos.js`.
+Si cambias los precios, actualiza también los textos `S/ 149.00` y `S/ 199.00` (y `-25%`) en `index.html`.
 
----
+## 3. Cómo funciona el flujo ahora
 
-## 3. Cómo funciona el flujo de compra
+1. El cliente llena el formulario (Lima o Provincia) y toca **Confirmar pedido**.
+2. Se valida todo igual que antes (nombre, WhatsApp, distrito/dirección, DNI, sede Shalom, etc.).
+3. El pedido se guarda en `localStorage` con un **código** tipo `PED-260917-A3F2`.
+4. Se abre WhatsApp apuntando a `WHATSAPP_NUMERO` con un mensaje como:
 
-1. El cliente navega el catálogo (con filtro por ambiente: Cocina, Baño,
-   Sala, Dormitorio, Oficina) y toca un producto.
-2. En el modal elige color (si aplica) y cantidad, y lo agrega al pedido.
-3. Puede seguir agregando más productos — el botón flotante 🛒 muestra
-   cuántas unidades lleva.
-4. Al tocar "Continuar pedido", completa el formulario (Lima o Provincia,
-   igual que antes).
-5. Se arma un mensaje de WhatsApp con **todos los productos del carrito**
-   (nombre, color, cantidad, subtotal) + los datos de entrega + el total.
-6. Se abre WhatsApp de la tienda con el mensaje ya escrito. El cliente solo
-   tiene que presionar "Enviar".
-7. El carrito se vacía automáticamente después de confirmar el pedido.
+```
+🛒 NUEVO PEDIDO — Mr. Barril Store
+Código: PED-260917-A3F2
 
-> Igual que antes: ningún sitio web puede enviar el mensaje de WhatsApp
-> solo — el cliente siempre tiene que tocar "Enviar" desde su WhatsApp.
+📦 Nombre del producto
+Cantidad: 2
+Color: Negro
+Precio unitario: S/ 140.00
+Subtotal: S/ 280.00
+
+📍 Envío a Lima
+Nombre: Juan Pérez
+WhatsApp: 987654321
+Distrito: Surco
+Dirección: Av. Principal 123 Dpto 402
+Instalación: Sí, agregar (S/ 50.00)
+Ubicación GPS: https://www.google.com/maps?q=-12.10,-77.01
+
+💰 Total a pagar: S/ 330.00
+Modalidad: Pago contra entrega
+```
+
+5. El cliente ve la pantalla de éxito con su código y un botón verde
+   **"Enviar mi pedido por WhatsApp"** (respaldo si el navegador bloqueó la apertura).
+
+> Ojo: WhatsApp siempre requiere que el cliente presione "enviar". Ningún sitio web
+> puede mandar el mensaje solo. Por eso la pantalla de éxito se lo recuerda.
 
 ---
 
 ## 4. Ver los pedidos guardados en el navegador
 
-Los respaldos son locales al navegador del cliente. En tu propio equipo,
-abriendo la consola del navegador (F12):
+Los respaldos son locales al navegador del cliente (no los ves tú a distancia).
+En tu propio equipo, abriendo la consola del navegador (F12):
 
 ```js
 Pedidos.leerPedidosGuardados()   // lista de pedidos
 Pedidos.descargarCSV()           // descarga pedidos.csv
 ```
 
+Sirve para pruebas. **Tu registro real de ventas es el WhatsApp.**
+
 ---
 
-## 5. Desplegar
+## 5. Imágenes del producto (`assets/images/`)
+
+- `galeria-1.jpg … galeria-6.jpg` → carrusel principal (4:5)
+- `medidas.jpg` → sección "Medidas del producto"
+- `vista-360.jpg` → bloque bajo "+1,000 clientes felices" (reemplaza al video)
+- `ambiente-recibidor.jpg`, `ambiente-sala.jpg` → sección "Un mueble, varios espacios"
+- `envio-1.jpg … envio-6.jpg` → carrusel de envíos
+- `producto-hero.jpg` (resumen del checkout y vista previa al compartir) y `miniatura-barra.jpg` (barra fija)
+- Para volver a usar video, ver el comentario en `index.html` (sección clientes felices).
+
+## 6. Desplegar
 
 Es un sitio 100% estático: sirve cualquier hosting.
 
-- **Render**: New → Static Site → conecta el repo → Publish directory `./`
-  (o usa `render.yaml`).
-- **Netlify / Vercel / GitHub Pages**: arrastra la carpeta o conecta el
-  repo. Sin build.
-
-
-### Galería de productos
-Cada producto ahora incluye 5 imágenes en el carrusel del detalle: la original + 4 imágenes de ejemplo generadas para reemplazarlas por fotos reales cuando quieras. Edita `imagenes` en `js/productos.js`. El carrusel avanza cada 4 segundos y permite flechas, toque/deslizamiento y arrastre con mouse.
+- **Render**: New → Static Site → conecta el repo → Publish directory `./` (o usa `render.yaml`).
+- **Netlify / Vercel / GitHub Pages**: arrastra la carpeta o conecta el repo. Sin build.

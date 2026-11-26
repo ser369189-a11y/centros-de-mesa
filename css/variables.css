@@ -2,10 +2,10 @@
    VARIABLES GLOBALES — paleta, tipografía, espaciados
    ============================================================ */
 :root {
-  /* Colores de marca — PRACTI HOME (industrial: negro + madera) */
-  --color-naranja: #a9743f;        /* acento "madera" — reemplaza al naranja del CTA */
-  --color-naranja-hover: #8f5f31;
-  --color-naranja-claro: #f4ece2;
+  /* Colores de marca (extraídos del diseño de referencia) */
+  --color-naranja: #f4750f;
+  --color-naranja-hover: #e0660a;
+  --color-naranja-claro: #fff1e6;
   --color-rojo: #e02b2b;
   --color-rojo-claro: #fdeaea;
   --color-verde: #1d8a4a;
@@ -14,12 +14,6 @@
   --color-azul: #1f6fd6;
   --color-azul-claro: #eaf2fc;
   --color-amarillo-estrella: #f5a623;
-
-  /* Marca */
-  --color-marca-negro: #1a1a1a;
-  --color-marca-madera: #a9743f;
-  --color-marca-madera-oscuro: #8f5f31;
-  --color-marca-beige: #f4ece2;
 
   --color-texto: #1a1a1a;
   --color-texto-secundario: #555555;

@@ -7,46 +7,48 @@
     ⚠️ IMPORTANTE: estas etiquetas (title, description, og:*) son LEÍDAS
     POR WHATSAPP/FACEBOOK/REDES directamente del HTML estático — esas
     plataformas no ejecutan JavaScript, así que NO pueden generarse
-    dinámicamente desde js/productos.js. Si cambias el nombre de la
-    tienda o la imagen principal, actualiza también estas líneas a mano.
+    dinámicamente desde config.js. Si cambias PRODUCTO_NOMBRE o la
+    descripción del producto en js/config.js, TIENES QUE actualizar
+    también estas líneas a mano para que coincidan.
 
     Después de editar, si compartes el link y sigue saliendo la versión
     vieja, es por caché de WhatsApp/Facebook — fuerza el refresh en:
     https://developers.facebook.com/tools/debug/ (pega tu URL → "Scrape Again")
   -->
-  <title>PRACTI HOME | Muebles Multiespacios — Envíos en Lima y Pago Contraentrega</title>
-  <meta name="description" content="Repisas, estantes, mesas y muebles auxiliares de diseño industrial. Envíos en Lima, pago contraentrega. ¡Arma tu pedido!" />
+  <title>Mesa Recibidora Sala | Consola Industrial · Envío y Pago Contraentrega a Todo el Perú</title>
+  <meta name="description" content="Mesa recibidora tipo consola, diseño industrial: melamine Pleikano 18 mm, estructura metálica con malla electrosoldada y patas niveladoras. 85 × 90 × 30 cm. Pago contra entrega y envíos a todo el Perú." />
 
   <!-- Open Graph (para que se vea bien al compartir en redes / WhatsApp) -->
-  <meta property="og:title" content="PRACTI HOME — Diseño que transforma tus espacios" />
-  <meta property="og:description" content="Repisas, estantes, mesas y muebles auxiliares de diseño industrial. Envíos en Lima y pago contraentrega." />
-  <meta property="og:image" content="assets/images/productos/mesa-recibidora-sala.jpg" />
+  <meta property="og:title" content="Mesa Recibidora Sala — Consola Industrial" />
+  <meta property="og:description" content="Consola de 2 niveles en melamine 18 mm y metal con malla electrosoldada. 85 × 90 × 30 cm. Envío y pago contraentrega a todo el Perú." />
+  <meta property="og:image" content="assets/images/producto-hero.jpg" />
   <meta property="og:type" content="product" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/variables.css" />
   <link rel="stylesheet" href="css/landing.css" />
   <link rel="stylesheet" href="css/checkout-modal.css" />
   <link rel="stylesheet" href="css/mejoras_landing.css" />
-  <link rel="stylesheet" href="css/catalogo.css" />
-  <link rel="stylesheet" href="css/diseno-referencia.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
   <!-- ===== BARRA DE CONFIANZA (arriba de todo) ===== -->
   <div class="trust-bar">
-    <div class="trust-bar__item trust-bar__item--destacado">🚚 ENVÍOS EN LIMA · PAGO CONTRAENTREGA</div>
-    <div class="trust-bar__item">🛒 Arma tu pedido con varios productos</div>
+    <div class="trust-bar__item trust-bar__item--destacado">💰 ENVIO GRATIS A TODO EL PERÚ</div>
+    <div class="trust-bar__item">🚚 Envío y pago contraentrega a todo el Perú</div>
     <div class="trust-bar__item">🔒 Compra 100% segura</div>
   </div>
 
+  <!-- ============================================================
+       BARRA SUPERIOR DE CONFIANZA
+       ============================================================ -->
   <div class="barra-confianza">
     <div class="barra-confianza__ticker-wrap">
       <div class="barra-confianza__ticker">
-        <span class="barra-confianza__item">🚚 Envíos en Lima</span>
+        <span class="barra-confianza__item">🚚 Envíos rápidos a todo el Perú</span>
         <span class="barra-confianza__sep">•</span>
         <span class="barra-confianza__item">🛡️ Pago contra entrega</span>
         <span class="barra-confianza__sep">•</span>
@@ -55,7 +57,7 @@
         <span class="barra-confianza__item"><span class="barra-confianza__estrellas">★★★★★</span> +1000 clientes satisfechos</span>
         <span class="barra-confianza__sep">•</span>
         <!-- Duplicado para loop continuo sin saltos -->
-        <span class="barra-confianza__item">🚚 Envíos en Lima</span>
+        <span class="barra-confianza__item">🚚 Envíos rápidos a todo el Perú</span>
         <span class="barra-confianza__sep">•</span>
         <span class="barra-confianza__item">🛡️ Pago contra entrega</span>
         <span class="barra-confianza__sep">•</span>
@@ -68,125 +70,386 @@
   </div>
 
   <!-- ============================================================
-       HEADER / NAVEGACIÓN — rediseño visual
+       SECCIÓN PRODUCTO
        ============================================================ -->
-  <header class="header-referencia">
-    <div class="header-referencia__inner">
-      <a class="header-referencia__logo" href="#top" aria-label="PRACTI HOME">
-        PRACTI HOME
-        <span>muebles · diseño · hogar</span>
-      </a>
-      <nav class="header-referencia__nav" aria-label="Navegación principal">
-        <a href="#catalogo">Catálogo</a>
-        <a href="#confianza">Envíos y pagos</a>
-        <a href="#opiniones">Opiniones</a>
-        <a href="#faq">Preguntas</a>
-      </nav>
-      <div class="header-referencia__actions">
-        <button type="button" class="header-referencia__cart" data-abrir-carrito aria-label="Abrir pedido">🛒 <span>Mi pedido</span></button>
-        <a class="header-referencia__menu" href="#catalogo" aria-label="Ir al catálogo"><span class="header-referencia__burger" aria-hidden="true"></span></a>
-      </div>
-    </div>
-  </header>
+  <main class="producto contenedor" id="seccion-producto">
+    <div class="producto__grid">
 
-  <!-- ============================================================
-       HERO DE MARCA
-       ============================================================ -->
-  <header class="hero-marca" id="top">
-    <div class="contenedor">
-      <div class="hero-marca__inner">
-        <div class="hero-marca__copy">
-          <div class="hero-marca__logo">PRACTI HOME</div>
-          <h1 class="hero-marca__titulo">Diseño que transforma tus espacios</h1>
-          <p class="hero-marca__subtitulo">
-            Repisas, estantes, mesas y muebles auxiliares de estilo industrial —
-            madera + metal — para cocina, baño, sala, dormitorio y oficina.
-          </p>
-          <a href="#catalogo" class="hero-marca__cta">Sigue deslizando para conocer nuestros modelos <span aria-hidden="true">↓</span></a>
+      <!-- ---------------- GALERÍA ----------------
+           Mobile: carrusel horizontal deslizable (scroll-snap) con dots,
+           pensado para el gesto natural de "swipe" de TikTok/Instagram.
+           Desktop (≥900px): miniaturas verticales + imagen grande,
+           controladas por el mismo JS pero mostrando/ocultando con CSS.
+      -->
+      <section class="galeria" aria-label="Galería de imágenes del producto">
+        <div class="galeria__badges">
+          <span class="badge-oferta">🔥 OFERTA POR TIEMPO LIMITADO</span>
+          <span class="badge-envio">🚚 ENVÍO GRATIS A TODO EL PERÚ</span>
         </div>
-        <div class="hero-marca__media">
-          <img src="assets/images/productos/mesa-recibidora-sala.jpg" alt="Mueble de PRACTI HOME" fetchpriority="high" />
+
+        <div class="galeria__principal-wrap">
+          <!-- Miniaturas laterales (solo visibles desktop) -->
+          <div class="galeria__miniaturas">
+            <button class="miniatura activa" data-indice="0" aria-label="Ver imagen 1">
+              <img src="assets/images/galeria-1.jpg" alt="Miniatura 1 - Mesa recibidora" loading="lazy" />
+            </button>
+            <button class="miniatura" data-indice="1" aria-label="Ver imagen 2">
+              <img src="assets/images/galeria-2.jpg" alt="Miniatura 2 - Mesa recibidora" loading="lazy" />
+            </button>
+            <button class="miniatura" data-indice="2" aria-label="Ver imagen 3">
+              <img src="assets/images/galeria-3.jpg" alt="Miniatura 3 - Mesa recibidora" loading="lazy" />
+            </button>
+            <button class="miniatura" data-indice="3" aria-label="Ver imagen 4">
+              <img src="assets/images/galeria-4.jpg" alt="Miniatura 4 - Mesa recibidora" loading="lazy" />
+            </button>
+            <button class="miniatura" data-indice="4" aria-label="Ver imagen 5">
+              <img src="assets/images/galeria-5.jpg" alt="Miniatura 5 - Mesa recibidora" loading="lazy" />
+            </button>
+            <button class="miniatura" data-indice="5" aria-label="Ver imagen 6">
+              <img src="assets/images/galeria-6.jpg" alt="Miniatura 6 - Mesa recibidora" loading="lazy" />
+            </button>
+          </div>
+
+          <!-- Carrusel: cada slide ocupa el 100% del ancho en mobile.
+               Imágenes en assets/images/galeria-1.jpg … galeria-6.jpg (4:5, ~1122x1402 px) -->
+          <div class="galeria__carrusel" id="galeria-carrusel">
+
+            <div class="galeria__slide" data-slide="0">
+              <div class="galeria__sello-peso">
+                MELAMINE<br /><strong>18</strong>mm
+              </div>
+              <img src="assets/images/galeria-1.jpg" alt="Mesa recibidora en entrada con espejo redondo y lámpara" />
+            </div>
+
+            <div class="galeria__slide" data-slide="1">
+              <img src="assets/images/galeria-2.jpg" alt="Mesa recibidora sala con medidas y características" loading="lazy" />
+            </div>
+
+            <div class="galeria__slide" data-slide="2">
+              <img src="assets/images/galeria-3.jpg" alt="Consola industrial madera y metal, vista en perspectiva" loading="lazy" />
+            </div>
+
+            <div class="galeria__slide" data-slide="3">
+              <img src="assets/images/galeria-4.jpg" alt="Consola industrial madera y metal, vista frontal" loading="lazy" />
+            </div>
+
+            <div class="galeria__slide" data-slide="4">
+              <img src="assets/images/galeria-5.jpg" alt="Consola con malla metálica electrosoldada, vista lateral" loading="lazy" />
+            </div>
+
+            <div class="galeria__slide" data-slide="5">
+              <img src="assets/images/galeria-6.jpg" alt="Consola de entrada con plantas y llaves" loading="lazy" />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </header>
 
-  <!-- ============================================================
-       CATÁLOGO
-       ============================================================ -->
-  <main class="catalogo contenedor" id="catalogo">
-    <h2 class="catalogo__titulo">Nuestros muebles</h2>
-    <p class="catalogo__subtitulo">Agrega uno o varios productos a tu pedido.</p>
+        <!-- Dots indicadores (solo mobile, reemplazan a las miniaturas) -->
+        <div class="galeria__dots" id="galeria-dots">
+          <button class="galeria__dot activo" data-indice="0" aria-label="Ir a imagen 1"></button>
+          <button class="galeria__dot" data-indice="1" aria-label="Ir a imagen 2"></button>
+          <button class="galeria__dot" data-indice="2" aria-label="Ir a imagen 3"></button>
+          <button class="galeria__dot" data-indice="3" aria-label="Ir a imagen 4"></button>
+          <button class="galeria__dot" data-indice="4" aria-label="Ir a imagen 5"></button>
+          <button class="galeria__dot" data-indice="5" aria-label="Ir a imagen 6"></button>
+        </div>
 
-    <div class="catalogo__grid" id="catalogo-grid"></div>
-  </main>
+        <!-- Sin selector de color: la mesa se vende en un único acabado (madera clara + negro). -->
+        <!-- ================================================================
+             EDITAR AQUÍ: 4 características rápidas debajo de la galería.
+             Puedes cambiar el ícono (emoji), el título corto y el detalle.
+             ================================================================ -->
+        <div class="caracteristicas-rapidas">
+          <div class="caracteristica-rapida">
+            <div class="caracteristica-rapida__icono">📐</div>
+            <div class="caracteristica-rapida__titulo">85 × 90 × 30 CM</div>
+            <div class="caracteristica-rapida__detalle">Alto × largo × ancho</div>
+          </div>
+          <div class="caracteristica-rapida">
+            <div class="caracteristica-rapida__icono">🪵</div>
+            <div class="caracteristica-rapida__titulo">MELAMINE 18 MM</div>
+            <div class="caracteristica-rapida__detalle">Pleikano, tablero resistente</div>
+          </div>
+          <div class="caracteristica-rapida">
+            <div class="caracteristica-rapida__icono">🔩</div>
+            <div class="caracteristica-rapida__titulo">ESTRUCTURA REFORZADA</div>
+            <div class="caracteristica-rapida__detalle">Metal + malla electrosoldada</div>
+          </div>
+          <div class="caracteristica-rapida">
+            <div class="caracteristica-rapida__icono">⚖️</div>
+            <div class="caracteristica-rapida__titulo">PATAS NIVELADORAS</div>
+            <div class="caracteristica-rapida__detalle">Estable en cualquier piso</div>
+          </div>
+        </div>
+      </section>
 
-  <!-- ===== CONFIANZA: agencias de envío + métodos de pago ===== -->
-  <section class="franja-confianza franja-confianza--top" id="confianza">
+      <!-- ---------------- INFO DE COMPRA ---------------- -->
+      <section class="info-compra" aria-label="Información de compra">
+        <div class="info-compra__viendo">
+          <span class="punto-verde"></span>
+          <span data-personas-viendo>20 personas están viendo este producto</span>
+        </div>
+
+        <!-- EDITAR: nombre visible del producto en el título principal -->
+        <h1 class="info-compra__titulo">
+          MESA RECIBIDORA SALA · CONSOLA INDUSTRIAL
+          <span class="info-compra__verificado">✔️</span>
+        </h1>
+
+        <div class="info-compra__resenas">
+          <span class="estrellas">★★★★★</span>
+          <strong>5.0</strong>
+          <span>(128 reseñas)</span>
+        </div>
+
+        <!-- EDITAR: lista de beneficios (ícono + texto) -->
+        <ul class="info-compra__beneficios">
+          <li><span class="info-compra__beneficio-icono">📐</span><span>Mide 85 cm de alto, 90 cm de largo y 30 cm de ancho: ideal para recibidores y pasillos</span></li>
+          <li>
+            <span class="info-compra__beneficio-icono">🪵</span>
+            <span>
+              <span class="info-compra__beneficio-titulo">Melamine Pleikano de 18 mm</span>
+              <span class="info-compra__beneficio-sub">Tablero firme en acabado madera clara, en la tapa y en la repisa</span>
+            </span>
+          </li>
+          <li><span class="info-compra__beneficio-icono">🔩</span><span>Estructura metálica con refuerzo y malla electrosoldada en los laterales</span></li>
+          <li><span class="info-compra__beneficio-icono">🗂️</span><span>Dos niveles: tapa superior y repisa inferior para libros, canastas y decoración</span></li>
+          <li>
+            <span class="info-compra__beneficio-icono">🏠</span>
+            <span>
+              <span class="info-compra__beneficio-titulo">Para sala, dormitorio, oficina o estudio</span>
+              <span class="info-compra__beneficio-sub">Diseño industrial, práctico y versátil</span>
+            </span>
+          </li>
+        </ul>
+
+        <!-- EDITAR: chips de "incluye" (accesorios/partes del producto) -->
+        <div class="info-compra__incluye">
+          <div class="info-compra__incluye-titulo">Lo que trae tu mesa</div>
+          <div class="info-compra__incluye-chips">
+            <span class="chip-incluye">🪵 Tapa y repisa en melamine 18 mm</span>
+            <span class="chip-incluye">🔩 Estructura metálica reforzada</span>
+            <span class="chip-incluye">🕸️ Malla metálica electrosoldada</span>
+            <span class="chip-incluye">⚖️ Patas niveladoras enroscables</span>
+          </div>
+        </div>
+
+        <div class="alerta-stock">
+          <div class="alerta-stock__texto">
+            ⚠️ <span data-stock-texto>¡SOLO QUEDAN 26 UNIDADES!</span>
+          </div>
+          <div class="alerta-stock__barra-fondo">
+            <div class="alerta-stock__barra-relleno" data-stock-barra style="width: 80%;"></div>
+          </div>
+        </div>
+
+        <div class="info-compra__pills">
+          <span class="pill">🚚 Envío GRATIS a todo el Perú</span>
+          <span class="pill pill--azul">💳 Pago al Recibir</span>
+        </div>
+
+        <!-- EDITAR: precio regular y precio tachado (debe coincidir con js/config.js) -->
+        <div class="precio-actual-wrap">
+          <span class="precio-actual">S/ 185.00</span>
+          <span class="precio-tachado">S/ 235.00</span>
+          <span class="badge-descuento">-25%</span>
+        </div>
+
+        <!-- CTA principal -->
+        <button class="btn-cta-principal" data-abrir-checkout>
+          🛒 PEDIR Y PAGAR AL RECIBIR
+          <span class="btn-cta-principal__sub">Envío Gratis · Pago al Recibir</span>
+        </button>
+
+        <div class="mej-garantia">
+          <div class="mej-garantia__sello">
+            <span class="mej-garantia__sello-num">30</span>
+            <span class="mej-garantia__sello-txt">DÍAS DE<br />GARANTÍA</span>
+          </div>
+          <div class="mej-garantia__info">
+            <div class="mej-garantia__titulo">🛡️ Compra 100% protegida</div>
+            <ul class="mej-garantia__lista">
+              <li>Si no quedás conforme, te devolvemos tu dinero</li>
+              <li>Pagás contra entrega: recién al recibir el producto</li>
+              <li>Producto original, tal cual las fotos</li>
+            </ul>
+          </div>
+        </div>
+<!-- ===== CONFIANZA: agencias de envío + métodos de pago (debajo del producto) ===== -->
+  <section class="franja-confianza franja-confianza--top">
     <div class="contenedor">
-      <h3 class="seccion-titulo-centrado">ENVÍOS RÁPIDOS Y SEGUROS EN LIMA</h3>
+      <h3 class="seccion-titulo-centrado">ENVÍOS RÁPIDOS Y SEGUROS A TODO EL PERÚ</h3>
 
+      <!--
+        LOGOS DE COURIERS: dinsides.png, shalom.png, olva-courier.png, marvisur.png
+        Tamaño recomendado: 160x60 px cada uno (fondo transparente PNG)
+        Estos logos son de las empresas de courier; reemplázalos con
+        los logos reales otorgados por cada empresa o tus aliados logísticos.
+      -->
+      <div class="logos-fila">
+        <img src="assets/images/logo-courier-dinsides.png" alt="Dinsides Courier"  loading="lazy" />
+        <img src="assets/images/logo-courier-shalom.png" alt="Shalom"  loading="lazy" />
+        <img src="assets/images/logo-courier-olva.png" alt="Olva Courier"  loading="lazy" />
+        <img src="assets/images/logo-courier-marvisur.png" alt="Expreso Marvisur"  loading="lazy" />
+      </div>
+
+      <!--
+        LOGOS DE MÉTODOS DE PAGO: visa.png, mastercard.png, amex.png, yape.png,
+        plin.png, bcp.png, scotiabank.png, interbank.png, bbva.png
+        Tamaño recomendado: 100x40 px cada uno (fondo transparente PNG)
+        Puedes descargar los logos oficiales desde el sitio de marca de
+        cada entidad (la mayoría tiene "brand guidelines" públicas).
+      -->
       <div class="logos-fila logos-fila--pagos">
-        <img src="assets/images/logo-pago-visa.png" alt="Visa" loading="lazy" />
-        <img src="assets/images/logo-pago-mastercard.png" alt="Mastercard" loading="lazy" />
-        <img src="assets/images/logo-pago-amex.png" alt="American Express" loading="lazy" />
-        <img src="assets/images/logo-pago-yape.png" alt="Yape" loading="lazy" />
-        <img src="assets/images/logo-pago-plin.png" alt="Plin" loading="lazy" />
-        <img src="assets/images/logo-pago-bcp.png" alt="BCP" loading="lazy" />
-        <img src="assets/images/logo-pago-scotiabank.png" alt="Scotiabank" loading="lazy" />
-        <img src="assets/images/logo-pago-interbank.png" alt="Interbank" loading="lazy" />
-        <img src="assets/images/logo-pago-bbva.png" alt="BBVA" loading="lazy" />
+        <img src="assets/images/logo-pago-visa.png" alt="Visa"  loading="lazy" />
+        <img src="assets/images/logo-pago-mastercard.png" alt="Mastercard"  loading="lazy" />
+        <img src="assets/images/logo-pago-amex.png" alt="American Express"  loading="lazy" />
+        <img src="assets/images/logo-pago-yape.png" alt="Yape"  loading="lazy" />
+        <img src="assets/images/logo-pago-plin.png" alt="Plin"  loading="lazy" />
+        <img src="assets/images/logo-pago-bcp.png" alt="BCP"  loading="lazy" />
+        <img src="assets/images/logo-pago-scotiabank.png" alt="Scotiabank"  loading="lazy" />
+        <img src="assets/images/logo-pago-interbank.png" alt="Interbank"  loading="lazy" />
+        <img src="assets/images/logo-pago-bbva.png" alt="BBVA"  loading="lazy" />
+      </div>
+
+          </div>
+  </section>
+
+        <div class="tienda-lider">
+          <div class="tienda-lider__header">
+            <span>🏅</span>
+            <span class="tienda-lider__titulo">Tienda Líder Platinum</span>
+          </div>
+          <div class="tienda-lider__subtitulo">¡Uno de los mejores del sitio!</div>
+          <div class="tienda-lider__barra"></div>
+          <div class="tienda-lider__metricas">
+            <div>
+              <div class="tienda-lider__metrica-numero">3,240</div>
+              <div class="tienda-lider__metrica-texto">Ventas en los últimos 60 días</div>
+            </div>
+            <div>
+              <div class="tienda-lider__metrica-numero">👍</div>
+              <div class="tienda-lider__metrica-texto">Brindamos buen servicio</div>
+            </div>
+            <div>
+              <div class="tienda-lider__metrica-numero">📦</div>
+              <div class="tienda-lider__metrica-texto">Entregas rápidas y seguras</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    </main>
+
+
+  <section class="mej-ba mej-espacios">
+    <div class="contenedor">
+      <h3 class="mej-titulo">Un mueble, varios espacios</h3>
+      <p class="mej-subtitulo">Mira cómo se ve en una sala y en un recibidor.</p>
+      <div class="espacios">
+        <figure class="espacios__card">
+          <img src="assets/images/ambiente-recibidor.jpg" alt="Mesa recibidora en el recibidor, con espejo, lámpara y canasta" loading="lazy" />
+          <figcaption>En tu recibidor</figcaption>
+        </figure>
+        <figure class="espacios__card">
+          <img src="assets/images/ambiente-sala.jpg" alt="Mesa recibidora en la sala, con plantas, libros y decoración" loading="lazy" />
+          <figcaption>En tu sala</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section class="mej-medidas">
+    <div class="contenedor">
+      <h3 class="mej-titulo">Medidas del producto</h3>
+      <p class="mej-subtitulo">Todo lo que necesitás saber, de un vistazo.</p>
+      <!-- Imagen de medidas: assets/images/medidas.jpg (85 cm alto · 90 cm largo · 30 cm ancho) -->
+      <div class="mej-medidas__marco">
+        <img class="mej-medidas__img"
+             src="assets/images/medidas.jpg"
+             alt="Medidas de la mesa recibidora: 85 cm de alto, 90 cm de largo y 30 cm de ancho"
+             loading="lazy" />
       </div>
     </div>
   </section>
 
-  <div class="contenedor">
-    <div class="tienda-lider">
-      <div class="tienda-lider__header">
-        <span>🏅</span>
-        <span class="tienda-lider__titulo">Tienda Líder Platinum</span>
-      </div>
-      <div class="tienda-lider__subtitulo">¡Uno de los mejores del sitio!</div>
-      <div class="tienda-lider__barra"></div>
-      <div class="tienda-lider__metricas">
-        <div>
-          <div class="tienda-lider__metrica-numero">3,240</div>
-          <div class="tienda-lider__metrica-texto">Ventas en los últimos 60 días</div>
-        </div>
-        <div>
-          <div class="tienda-lider__metrica-numero">👍</div>
-          <div class="tienda-lider__metrica-texto">Brindamos buen servicio</div>
-        </div>
-        <div>
-          <div class="tienda-lider__metrica-numero">📦</div>
-          <div class="tienda-lider__metrica-texto">Entregas rápidas y seguras</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- ============================================================
-       FRANJA DE CONFIANZA: reseñas + envíos + beneficios
+       FRANJA DE CONFIANZA: envíos, métodos de pago, clientes
        ============================================================ -->
-  <section class="franja-confianza" id="opiniones">
+  <section class="franja-confianza">
     <div class="contenedor">
-      <h3 class="seccion-titulo-centrado">+1,000 CLIENTES FELICES EN TODO EL PERÚ</h3>
+<h3 class="seccion-titulo-centrado">+1,000 CLIENTES FELICES EN TODO EL PERÚ</h3>
 
+      <!--
+        ============================================================
+        SECCIÓN COMENTADA: carrusel de fotos de clientes (testimoniales)
+        ============================================================
+        Se reemplazó por el video del producto (autoplay en silencio,
+        justo debajo). Si en algún momento quieres volver a mostrar
+        las fotos de clientes en vez del video, descomenta este bloque
+        y comenta/elimina el bloque "VIDEO DE CLIENTES" que sigue.
+
+      <div class="carrusel-social" data-carrusel data-dir="derecha">
+        <div class="carrusel-social__track">
+        <img src="assets/images/cliente-testimonio-1.jpg" alt="Cliente satisfecho 1" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-2.jpg" alt="Cliente satisfecho 2" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-3.jpg" alt="Cliente satisfecho 3" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-4.jpg" alt="Cliente satisfecho 4" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-5.jpg" alt="Cliente satisfecho 5" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-6.jpg" alt="Cliente satisfecho 6" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-7.jpg" alt="Cliente satisfecho 7" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-8.jpg" alt="Cliente satisfecho 8" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-9.jpg" alt="Cliente satisfecho 9" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-10.jpg" alt="Cliente satisfecho 10" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-1.jpg" aria-hidden="true" alt="Cliente satisfecho 1" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-2.jpg" aria-hidden="true" alt="Cliente satisfecho 2" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-3.jpg" aria-hidden="true" alt="Cliente satisfecho 3" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-4.jpg" aria-hidden="true" alt="Cliente satisfecho 4" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-5.jpg" aria-hidden="true" alt="Cliente satisfecho 5" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-6.jpg" aria-hidden="true" alt="Cliente satisfecho 6" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-7.jpg" aria-hidden="true" alt="Cliente satisfecho 7" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-8.jpg" aria-hidden="true" alt="Cliente satisfecho 8" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-9.jpg" aria-hidden="true" alt="Cliente satisfecho 9" loading="lazy" draggable="false" />
+        <img src="assets/images/cliente-testimonio-10.jpg" aria-hidden="true" alt="Cliente satisfecho 10" loading="lazy" draggable="false" />
+        </div>
+      </div>
+      -->
+
+      <!--
+        VIDEO (desactivado): no hay video de la mesa todavía. Cuando lo tengas, guarda
+        el archivo como assets/videos/producto-video.mp4 (vertical, < 8 MB) y reemplaza
+        el bloque "vista-360" de abajo por:
+
+        <div class="video-clientes-wrap">
+          <video id="video-testimonio-clientes" class="video-clientes"
+                 autoplay muted loop playsinline preload="metadata"
+                 poster="assets/images/galeria-2.jpg">
+            <source src="assets/videos/producto-video.mp4" type="video/mp4" />
+          </video>
+          <button class="video-clientes__sonido" id="btn-sonido-video-clientes"
+                  aria-label="Activar sonido del video" aria-pressed="false">🔇</button>
+        </div>
+      -->
+      <div class="vista-360">
+        <img src="assets/images/vista-360.jpg"
+             alt="Mesa recibidora en vista 360°: frontal, lateral y detalles de malla, pata niveladora, melamine y estructura"
+             loading="lazy" />
+      </div>
+<!-- Reseñas con texto -->
       <div class="mej-resenas">
         <div class="mej-resena">
           <div class="mej-resena__top">
             <span class="mej-resena__estrellas">★★★★★</span>
             <span class="mej-resena__verificado">✔️ Compra verificada</span>
           </div>
-          <p class="mej-resena__texto">"Pedí la repisa de cocina y el estante para la sala juntos. Llegó todo bien empacado y quedó igual a las fotos."</p>
-          <div class="mej-resena__autor">— Mario G. · Chaclacayo</div>
+          <p class="mej-resena__texto">"Llegó muy bien protegida a Arequipa. La puse en el recibidor y combina perfecto con el espejo. Muy firme."</p>
+          <div class="mej-resena__autor">— Mario G. · Arequipa</div>
         </div>
         <div class="mej-resena">
           <div class="mej-resena__top">
             <span class="mej-resena__estrellas">★★★★★</span>
             <span class="mej-resena__verificado">✔️ Compra verificada</span>
           </div>
-          <p class="mej-resena__texto">"La calidad del metal se siente, no es de esos muebles que se tambalean. Fácil de armar, en menos de 20 minutos."</p>
+          <p class="mej-resena__texto">"La compré para la sala. El acabado en madera clara con el negro se ve elegante y la repisa de abajo me sirve para las canastas."</p>
           <div class="mej-resena__autor">— Carla M. · Lima, San Miguel</div>
         </div>
         <div class="mej-resena">
@@ -194,39 +457,36 @@
             <span class="mej-resena__estrellas">★★★★★</span>
             <span class="mej-resena__verificado">✔️ Compra verificada</span>
           </div>
-          <p class="mej-resena__texto">"Pagué al recibirlo, todo tal cual la foto. La mesa de noche quedó preciosa en mi cuarto."</p>
+          <p class="mej-resena__texto">"Pagué al recibirla, todo tal cual las fotos. Las patas niveladoras ayudaron porque mi piso no está parejo."</p>
           <div class="mej-resena__autor">— Roberto T. · Callao</div>
         </div>
       </div>
 
-      <h3 class="seccion-titulo-centrado" style="margin-top: 40px;">ENVÍOS GARANTIZADOS EN LIMA</h3>
+      <h3 class="seccion-titulo-centrado" style="margin-top: 40px;">ENVÍOS GARANTIZADOS A TODO EL PERÚ</h3>
 
+      <!-- Fotos de envíos: assets/images/envio-1.jpg … envio-6.jpg (se duplican abajo para el loop infinito) -->
       <div class="carrusel-social" data-carrusel data-dir="izquierda">
         <div class="carrusel-social__track">
-        <img src="assets/images/envio-paquete-1.jpg" alt="Envío 1" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-2.jpg" alt="Envío 2" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-3.jpg" alt="Envío 3" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-4.jpg" alt="Envío 4" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-5.jpg" alt="Envío 5" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-6.jpg" alt="Envío 6" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-7.jpg" alt="Envío 7" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-8.jpg" alt="Envío 8" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-1.jpg" aria-hidden="true" alt="Envío 1" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-2.jpg" aria-hidden="true" alt="Envío 2" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-3.jpg" aria-hidden="true" alt="Envío 3" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-4.jpg" aria-hidden="true" alt="Envío 4" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-5.jpg" aria-hidden="true" alt="Envío 5" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-6.jpg" aria-hidden="true" alt="Envío 6" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-7.jpg" aria-hidden="true" alt="Envío 7" loading="lazy" draggable="false" />
-        <img src="assets/images/envio-paquete-8.jpg" aria-hidden="true" alt="Envío 8" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-1.jpg" alt="Mesa recibidora embalada y lista para envío 1" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-2.jpg" alt="Mesa recibidora embalada y lista para envío 2" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-3.jpg" alt="Mesa recibidora embalada y lista para envío 3" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-4.jpg" alt="Mesa recibidora embalada y lista para envío 4" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-5.jpg" alt="Mesa recibidora embalada y lista para envío 5" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-6.jpg" alt="Mesa recibidora embalada y lista para envío 6" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-1.jpg" aria-hidden="true" alt="" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-2.jpg" aria-hidden="true" alt="" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-3.jpg" aria-hidden="true" alt="" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-4.jpg" aria-hidden="true" alt="" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-5.jpg" aria-hidden="true" alt="" loading="lazy" draggable="false" />
+        <img src="assets/images/envio-6.jpg" aria-hidden="true" alt="" loading="lazy" draggable="false" />
         </div>
       </div>
 
       <div class="beneficios-finales">
         <div>
           <div style="font-size:22px;">🚚</div>
-          <div class="beneficio-final__titulo">ENVÍOS EN LIMA</div>
-          <div class="beneficio-final__texto">Llegamos a tu puerta</div>
+          <div class="beneficio-final__titulo">ENVÍOS A TODO EL PERÚ</div>
+          <div class="beneficio-final__texto">Llegamos a tu ciudad</div>
         </div>
         <div>
           <div style="font-size:22px;">💰</div>
@@ -243,23 +503,23 @@
   </section>
 
   <!-- ============================================================
+       FOOTER DE MINI-BENEFICIOS (franja final oscura)
+       ============================================================ -->
+  <!-- ============================================================
        FAQ — PREGUNTAS FRECUENTES  (⚠️ editá según tu operación)
        ============================================================ -->
-  <section class="mej-faq" id="faq">
+  <!-- EDITAR: preguntas frecuentes según tu operación real -->
+  <section class="mej-faq">
     <div class="contenedor">
       <h3 class="mej-titulo">Preguntas frecuentes</h3>
       <div class="mej-faq__lista">
         <details class="mej-faq__item">
           <summary>¿Cómo pago? ¿Es seguro?</summary>
-          <div class="mej-faq__resp">Pagas <strong>contra entrega</strong>: recién abonas cuando recibes el producto en tu casa. No pagas nada por adelantado.</div>
-        </details>
-        <details class="mej-faq__item">
-          <summary>¿Puedo pedir varios productos juntos?</summary>
-          <div class="mej-faq__resp">Sí. Agrega todos los muebles que quieras al carrito y arma un solo pedido con un solo envío.</div>
+          <div class="mej-faq__resp">Pagas <strong>contra entrega</strong>: recién abonas cuando recibes el producto en tu casa si es en Lima, o en la agencia Shalom al momento del recojo si es en provincia. No pagas nada por adelantado.</div>
         </details>
         <details class="mej-faq__item">
           <summary>¿Cuánto demora el envío?</summary>
-          <div class="mej-faq__resp">En Lima te llega el mismo día o al día siguiente de haber realizado tu pedido. Te escribimos por WhatsApp para coordinar la entrega.</div>
+          <div class="mej-faq__resp">En Lima te llega el mismo día o al día siguiente de haber realizado tu pedido. A provincia, entre 2 y 3 días hábiles vía Shalom. Te pasamos el seguimiento por WhatsApp.</div>
         </details>
         <details class="mej-faq__item">
           <summary>¿Qué medios de pago aceptan?</summary>
@@ -267,11 +527,27 @@
         </details>
         <details class="mej-faq__item">
           <summary>¿El envío tiene costo?</summary>
-          <div class="mej-faq__resp">Realizamos <strong>envíos en Lima con pago contraentrega</strong>: lo pagas junto con el producto al recibirlo.</div>
+          <div class="mej-faq__resp">No, el <strong>envío es GRATIS</strong> a todo el Perú. En Lima lo pagas contraentrega junto con el producto. A provincia, coordinamos un pequeño <strong>adelanto de S/ 20</strong> por WhatsApp para el flete de Shalom, y la diferencia la pagas al recoger tu pedido.</div>
         </details>
         <details class="mej-faq__item">
-          <summary>¿Es difícil de armar?</summary>
-          <div class="mej-faq__resp">No. Nuestros muebles son semiarmables: llegan la mayoría de piezas ya ensambladas y se terminan de armar en pocos minutos, con herramientas simples.</div>
+          <summary>¿Qué medidas tiene?</summary>
+          <div class="mej-faq__resp">Mide <strong>85 cm de alto, 90 cm de largo y 30 cm de ancho</strong>. Es una consola angosta, pensada para recibidores, pasillos y espacios donde un mueble profundo no entra.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿De qué material está hecha?</summary>
+          <div class="mej-faq__resp">La tapa y la repisa son de <strong>melamine Pleikano de 18 mm</strong>. La estructura es metálica con refuerzo y lleva <strong>malla metálica electrosoldada</strong> en los laterales.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Se puede nivelar si mi piso está desparejo?</summary>
+          <div class="mej-faq__resp">Sí. Trae <strong>patas niveladoras enroscables</strong>: las giras hasta que la mesa quede firme y pareja.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿En qué ambientes la puedo usar?</summary>
+          <div class="mej-faq__resp">En <strong>sala, dormitorio, oficina o estudio</strong>. Es una mesa recibidora de dos niveles, por eso también sirve como consola de pasillo o mueble para decoración.</div>
+        </details>
+        <details class="mej-faq__item">
+          <summary>¿Cómo llega el producto?</summary>
+          <div class="mej-faq__resp">Lo despachamos protegido con <strong>esquineros de cartón y film transparente</strong> para que llegue bien a tu casa o a la agencia.</div>
         </details>
         <details class="mej-faq__item">
           <summary>¿Tiene garantía?</summary>
@@ -284,8 +560,8 @@
   <footer class="mini-beneficios-footer">
     <div class="contenedor">
       <div>
-        <div class="mini-beneficios-footer__item-titulo">🚚 ENVÍOS RÁPIDOS EN LIMA</div>
-        <div class="mini-beneficios-footer__item-texto">Entrega en todo Lima</div>
+        <div class="mini-beneficios-footer__item-titulo">🚚 ENVÍOS RÁPIDOS A TODO EL PERÚ</div>
+        <div class="mini-beneficios-footer__item-texto">A todo el Perú incluso provincia</div>
       </div>
       <div>
         <div class="mini-beneficios-footer__item-titulo">💰 PAGO CONTRA ENTREGA</div>
@@ -302,88 +578,33 @@
     </div>
   </footer>
 
-  <!-- ============================================================
-       BOTÓN FLOTANTE DE CARRITO
-       ============================================================ -->
-  <button type="button" class="carrito-flotante" id="whatsapp-flotante" data-abrir-carrito data-carrito-badge-wrap style="display:none;">
-    🛒
-    <span class="carrito-flotante__contador" data-carrito-contador>0</span>
-  </button>
+  <div class="espaciador-barra-fija"></div>
 
   <!-- ============================================================
-       MODAL DE PRODUCTO (detalle + color + cantidad)
+       BARRA FIJA INFERIOR (aparece al hacer scroll)
        ============================================================ -->
-  <div class="modal-overlay" id="modal-producto-overlay">
-    <div class="modal-producto" role="dialog" aria-modal="true" aria-labelledby="producto-modal-nombre">
-      <button class="modal-producto__cerrar" data-cerrar-producto aria-label="Cerrar">✕</button>
-
-      <div class="producto-modal__img-wrap producto-modal__galeria" id="producto-modal-galeria" aria-label="Galería de imágenes del producto">
-        <div class="producto-modal__galeria-track" id="producto-modal-galeria-track"></div>
-        <button type="button" class="producto-modal__galeria-arrow producto-modal__galeria-arrow--prev" id="producto-modal-galeria-prev" aria-label="Imagen anterior">‹</button>
-        <button type="button" class="producto-modal__galeria-arrow producto-modal__galeria-arrow--next" id="producto-modal-galeria-next" aria-label="Imagen siguiente">›</button>
-        <div class="producto-modal__galeria-dots" id="producto-modal-galeria-dots" aria-label="Seleccionar imagen"></div>
-      </div>
-
-      <h3 id="producto-modal-nombre"></h3>
-      <div id="producto-modal-medida"></div>
-
-      <div class="producto-modal__precios">
-        <span id="producto-modal-precio"></span>
-        <span id="producto-modal-precio-tachado"></span>
-        <span id="producto-modal-descuento-badge"></span>
-      </div>
-
-      <div id="producto-modal-colores-bloque">
-        <div class="producto-modal__bloque-titulo">Elige un color</div>
-        <div class="producto-modal__colores" id="producto-modal-colores"></div>
-      </div>
-
-      <div class="producto-modal__bloque-titulo">Características</div>
-      <ul class="producto-modal__caracteristicas" id="producto-modal-caracteristicas"></ul>
-
-      <div class="producto-modal__pie">
-        <div class="producto-modal__cantidad">
-          <button type="button" id="btn-cantidad-menos" aria-label="Restar cantidad">−</button>
-          <span id="producto-modal-cantidad-valor">1</span>
-          <button type="button" id="btn-cantidad-mas" aria-label="Sumar cantidad">+</button>
+  <div class="barra-fija-inferior" id="barra-fija-inferior">
+    <div class="contenedor">
+      <div class="barra-fija-inferior__producto">
+        <!-- EDITAR: mismo nombre/precio que arriba en la ficha del producto -->
+        <img src="assets/images/miniatura-barra.jpg" alt="Mesa Recibidora Sala"  loading="lazy" />
+        <div>
+          <div class="barra-fija-inferior__nombre" id="barra-fija-nombre">Mesa Recibidora Sala</div>
+          <div class="barra-fija-inferior__precio">
+            <strong id="barra-fija-precio">S/ 185.00</strong> <span class="precio-tachado">S/ 235.00</span>
+            <span class="badge-descuento" id="barra-fija-badge">-25%</span>
+          </div>
         </div>
-        <button type="button" id="btn-agregar-carrito">Agregar al pedido</button>
       </div>
+      <span class="barra-fija-inferior__stock">🔥 <span data-stock-numero>12</span> unidades</span>
+      <button class="barra-fija-inferior__cta" data-abrir-checkout>
+        PEDIR Y PAGAR AL RECIBIR
+        <span>Envío Gratis · Pago al Recibir</span>
+      </button>
     </div>
   </div>
-
   <!-- ============================================================
-       CARRITO (drawer lateral)
-       ============================================================ -->
-  <div class="carrito-overlay" id="carrito-overlay">
-    <aside class="carrito-drawer" role="dialog" aria-modal="true" aria-label="Tu pedido">
-      <div class="carrito-drawer__header">
-        <span class="carrito-drawer__titulo">🛒 Tu pedido</span>
-        <button type="button" class="carrito-drawer__cerrar" data-cerrar-carrito aria-label="Cerrar">✕</button>
-      </div>
-
-      <div class="carrito-vacio" id="carrito-vacio">
-        Todavía no agregaste ningún producto.<br />
-        Elige un mueble del catálogo para empezar tu pedido.
-      </div>
-
-      <div id="carrito-lista"></div>
-
-      <div class="carrito-drawer__footer" id="carrito-footer" style="display:none;">
-        <div class="carrito-drawer__subtotal">
-          <span>Subtotal</span>
-          <span class="carrito-drawer__subtotal-valor" id="carrito-subtotal-valor">S/ 0.00</span>
-        </div>
-        <button type="button" class="carrito-drawer__continuar" data-abrir-checkout data-cerrar-carrito>
-          Continuar pedido
-        </button>
-        <div class="carrito-drawer__aviso">🚚 Envíos en Lima · Pago contraentrega</div>
-      </div>
-    </aside>
-  </div>
-
-  <!-- ============================================================
-       MODAL DE CHECKOUT (solo Lima)
+       MODAL DE CHECKOUT (Lima / Provincia)
        ============================================================ -->
   <div class="modal-overlay" id="modal-checkout-overlay">
     <div class="modal-checkout" role="dialog" aria-modal="true" aria-labelledby="modal-checkout-titulo">
@@ -399,11 +620,61 @@
           </div>
         </div>
 
-        <!-- ===== Resto del formulario: formulario de entrega (solo Lima) ===== -->
+        <!-- ===== PASO 1 — pantalla completa: elegir Lima o Provincia ANTES de mostrar cualquier campo ===== -->
+        <div id="modal-checkout-paso1" class="paso-envio-full">
+          <div class="paso-envio-full__titulo">¿A dónde enviamos tu pedido?</div>
+          <div class="paso-envio-full__subtitulo">Elige tu destino para continuar con tus datos</div>
+
+          <button class="paso-envio-full__opcion" data-paso1-tipo="lima" type="button">
+            <span class="paso-envio-full__icono">🏠</span>
+            <div class="paso-envio-full__texto">
+              <div class="paso-envio-full__fila-titulo">
+                <span class="paso-envio-full__titulo-opcion">Lima - Paga en casa</span>
+                <span class="badge-gratis">Gratis</span>
+              </div>
+              <div class="paso-envio-full__subtitulo-opcion">Pagas cuando recibes</div>
+            </div>
+            <span class="paso-envio-full__flecha">›</span>
+          </button>
+
+          <button class="paso-envio-full__opcion" data-paso1-tipo="provincia" type="button">
+            <span class="paso-envio-full__icono">📦</span>
+            <div class="paso-envio-full__texto">
+              <div class="paso-envio-full__fila-titulo">
+                <span class="paso-envio-full__titulo-opcion">Provincia - Envió por Shalom</span>
+                <span class="badge-gratis">Gratis</span>
+              </div>
+              <div class="paso-envio-full__subtitulo-opcion">Adelanto de S/. 20 y diferencia pagas al recoger</div>
+            </div>
+            <span class="paso-envio-full__flecha">›</span>
+          </button>
+        </div>
+
+        <!-- ===== Resto del formulario: solo aparece DESPUÉS de elegir Lima/Provincia ===== -->
         <div id="modal-checkout-resto">
         <div class="modal-checkout__grid">
           <!-- Columna izquierda: formulario -->
           <div>
+            <div class="selector-envio-mini">
+              <span class="selector-envio-mini__label">Destino:</span>
+              <div class="selector-envio">
+                <button class="selector-envio__opcion activa" data-tipo-envio="lima" type="button">
+                  <span class="selector-envio__icono">🏠</span>
+                  <div>
+                    <div class="selector-envio__titulo">Lima - Paga en casa <span class="badge-gratis badge-gratis--mini">Gratis</span></div>
+                    <div class="selector-envio__subtitulo">Pagas cuando recibes</div>
+                  </div>
+                </button>
+                <button class="selector-envio__opcion" data-tipo-envio="provincia" type="button">
+                  <span class="selector-envio__icono">📦</span>
+                  <div>
+                    <div class="selector-envio__titulo">Provincia - Envió por Shalom <span class="badge-gratis badge-gratis--mini">Gratis</span></div>
+                    <div class="selector-envio__subtitulo">Adelanto de S/. 20 y diferencia pagas al recoger</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
             <div class="modal-paso">
               <span class="modal-paso__numero">2</span>
               <span id="modal-checkout-titulo-paso2">Ingresa tus datos de entrega</span>
@@ -452,29 +723,104 @@
                 </div>
                 <span class="campo__ayuda">1) Buscá tu calle o distrito para acercarte. 2) Arrastrá el pin al número exacto de tu puerta. El número de casa lo escribís arriba en “Dirección exacta”.</span>
               </div>
-            </div>
 
+              </div>
+
+            <!-- ===== Campos: ENVÍO A PROVINCIA ===== -->
+            <div data-seccion-envio="provincia">
+              <div class="campo">
+                <label for="campo-nombre-provincia">Nombre completo</label>
+                <input type="text" id="campo-nombre-provincia" placeholder="Ej: Juan Pérez" />
+                <span class="campo__error-texto" data-error-de="campo-nombre-provincia"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-dni">DNI</label>
+                <input type="text" id="campo-dni" placeholder="Ej: 12345678" inputmode="numeric" maxlength="8" />
+                <span class="campo__error-texto" data-error-de="campo-dni"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-whatsapp-provincia">WhatsApp</label>
+                <input type="tel" id="campo-whatsapp-provincia" placeholder="Ej: 912 345 678" />
+                <span class="campo__error-texto" data-error-de="campo-whatsapp-provincia"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-departamento">Departamento</label>
+                <select id="campo-departamento">
+                  <option value="">Ej: Arequipa</option>
+                  <option>Amazonas</option>
+                  <option>Áncash</option>
+                  <option>Apurímac</option>
+                  <option>Arequipa</option>
+                  <option>Ayacucho</option>
+                  <option>Cajamarca</option>
+                  <option>Cusco</option>
+                  <option>Huancavelica</option>
+                  <option>Huánuco</option>
+                  <option>Ica</option>
+                  <option>Junín</option>
+                  <option>La Libertad</option>
+                  <option>Lambayeque</option>
+                  <option>Loreto</option>
+                  <option>Madre de Dios</option>
+                  <option>Moquegua</option>
+                  <option>Pasco</option>
+                  <option>Piura</option>
+                  <option>Puno</option>
+                  <option>San Martín</option>
+                  <option>Tacna</option>
+                  <option>Tumbes</option>
+                  <option>Ucayali</option>
+                </select>
+                <span class="campo__error-texto" data-error-de="campo-departamento"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-ciudad-destino">Ciudad / Destino</label>
+                <input type="text" id="campo-ciudad-destino" placeholder="Ej: Arequipa, Cusco, Trujillo" />
+                <span class="campo__error-texto" data-error-de="campo-ciudad-destino"></span>
+              </div>
+              <div class="campo">
+                <label for="campo-sede-shalom">Sede de Shalom más cercana a tu domicilio</label>
+                <input type="text" id="campo-sede-shalom" placeholder="Ej: Shalom Arequipa, Shalom Cusco, Shalom Trujillo" />
+                <span class="campo__error-texto" data-error-de="campo-sede-shalom"></span>
+              </div>
+
+              <div class="aviso-shalom">
+                <span class="aviso-shalom__icono">ℹ️</span>
+                <div>
+                  <div class="aviso-shalom__titulo">Tu pedido será enviado por Shalom.</div>
+                  <div class="aviso-shalom__texto">Indica la sede de Shalom más cercana a tu domicilio para coordinar la entrega.</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Columna derecha: resumen -->
           <div class="resumen-pedido">
+            <!--
+              IMAGEN — EDITAR: 400x300 px (relación 4:3). Puede ser la
+              misma imagen del hero, recortada a 4:3.
+            -->
+            <img src="assets/images/producto-hero.jpg" alt="Mesa Recibidora Sala" class="resumen-pedido__producto-img"  loading="lazy" />
+            <div class="resumen-pedido__nombre" id="resumen-producto-nombre">Mesa Recibidora Sala</div>
+            <div class="resumen-pedido__precio" id="resumen-producto-precio-unitario">S/ 185.00</div>
+
             <div class="resumen-pedido__titulo">Resumen de tu pedido</div>
-
-            <div id="resumen-lista-productos"></div>
-
             <div class="resumen-pedido__linea">
-              <span>Subtotal productos</span>
-              <span id="resumen-subtotal-valor">S/ 0.00</span>
+              <span id="resumen-linea-producto-cantidad">Mesa Recibidora Sala (1 unidad)</span>
+              <span id="resumen-linea-producto-precio">S/ 185.00</span>
             </div>
-
+            <!--
+              Sin línea de "Color" (no aplica) ni de "Instalación"
+              (el producto no se instala) — se quitaron ambas del resumen.
+            -->
             <div class="resumen-pedido__linea">
-              <span id="resumen-envio-label">Costo de envío (Lima Metropolitana)</span>
-              <span id="resumen-linea-envio-texto">S/ 10.00</span>
+              <span>Envío</span>
+              <span id="resumen-linea-envio-texto">Contraentrega</span>
             </div>
 
             <div class="resumen-pedido__total">
               <span class="resumen-pedido__total-label">Total a pagar</span>
-              <span class="resumen-pedido__total-valor" id="resumen-total-valor">S/ 0.00</span>
+              <span class="resumen-pedido__total-valor" id="resumen-total-valor">S/ 185.00</span>
             </div>
 
             <div class="resumen-pedido__garantias">
@@ -488,8 +834,8 @@
               <div class="resumen-pedido__garantia">
                 <span class="resumen-pedido__garantia-icono">🚚</span>
                 <div>
-                  <span class="resumen-pedido__garantia-titulo">Envíos en Lima</span>
-                  <span class="resumen-pedido__garantia-texto">Rápido y seguro, entrega en Lima</span>
+                  <span class="resumen-pedido__garantia-titulo">Envío GRATIS a todo el Perú</span>
+                  <span class="resumen-pedido__garantia-texto">Rápido y seguro, a Lima y a provincias</span>
                 </div>
               </div>
               <div class="resumen-pedido__garantia">
@@ -535,14 +881,11 @@
        SCRIPTS
        ============================================================ -->
   <script src="js/config.js"></script>
-  <script src="js/productos.js"></script>
-  <script src="js/carrito.js"></script>
   <script src="js/pedidos.js"></script>
   <script src="js/pixels.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/checkout-modal.js"></script>
-  <script src="js/catalogo.js"></script>
   <script src="js/landing.js"></script>
-  <script src="js/carrusel-clientes.js"></script>
+    <script src="js/carrusel-clientes.js"></script>
 </body>
 </html>
