@@ -99,3 +99,16 @@ Es un sitio 100% estático: sirve cualquier hosting.
 
 - **Render**: New → Static Site → conecta el repo → Publish directory `./` (o usa `render.yaml`).
 - **Netlify / Vercel / GitHub Pages**: arrastra la carpeta o conecta el repo. Sin build.
+
+---
+
+## 4. Rediseño visual ("industrial cálido")
+
+- Todo el estilo nuevo está en `css/rediseno.css` (colores, tipografía, secciones).
+  Para cambiar el color del botón de compra edita `--cta` y `--cta-hover` al inicio del archivo.
+- `index.html` usa ahora `variables.css` + `checkout-modal.css` + `rediseno.css`.
+  `landing.css` y `mejoras_landing.css` ya no se cargan (quedan en la carpeta por si quieres volver atrás).
+- Los JS (`config.js`, `pedidos.js`, `pixels.js`, `checkout-modal.js`, `landing.js`) no cambiaron.
+  El formulario conserva los mismos ids y campos.
+- Las fotos tienen versión `.webp` (más livianas) con el `.jpg` como respaldo.
+  Si reemplazas una foto, reemplaza ambas versiones o borra el `.webp`.
